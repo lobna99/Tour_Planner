@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.tour_planner.TourOverviewController">
+    <ToolBar>
+        <Label text="%TourOverview_Items"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button text="+" onAction="#onButtonAdd"/>
+        <Button text="-" onAction="#onButtonRemove"/>
+        <Button text="..."/>
+    </ToolBar>
+    <ListView fx:id="mediaItemList" VBox.vgrow="ALWAYS"/>
+</VBox>

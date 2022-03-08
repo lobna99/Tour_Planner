@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.tour_planner.MainWindowController"
+      prefHeight="400.0" prefWidth="600.0">
+    <MenuBar>
+        <Menu text="%Menu_File">
+            <MenuItem text="%Menu_File_Import"/>
+            <MenuItem text="%Menu_File_Export"/>
+            <MenuItem text="%Menu_File_Quit" />
+        </Menu>
+        <Menu text="%Menu_Edit">
+            <MenuItem text="%Menu_Edit_Duplicate"/>
+        </Menu>
+        <Menu text="%Menu_Options">
+            <MenuItem mnemonicParsing="false" text="%Menu_Options_Settings"/>
+        </Menu>
+        <Menu text="%Menu_Help">
+            <MenuItem text="%Menu_Help_About" />
+        </Menu>
+    </MenuBar>
+    <fx:include fx:id="searchbar" source="Searchbar.fxml"/>
+    <SplitPane dividerPositions="0.3" VBox.vgrow="ALWAYS">
+        <fx:include fx:id="tourOverview" source="TourOverview.fxml"/>
+        <!--<fx:include fx:id="mediaDetails" source="MediaDetails.fxml"/>!-->
+    </SplitPane>
+</VBox>
