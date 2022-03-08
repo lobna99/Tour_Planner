@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.tour_planner.MainWindowController"
+      fx:controller="com.example.tour_planner.view.MainWindowController"
       prefHeight="400.0" prefWidth="600.0">
     <MenuBar>
         <Menu text="%Menu_File">

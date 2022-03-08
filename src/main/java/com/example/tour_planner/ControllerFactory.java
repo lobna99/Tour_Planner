@@ -1,5 +1,8 @@
 package com.example.tour_planner;
 
+import com.example.tour_planner.view.MainWindowController;
+import com.example.tour_planner.view.SearchBarController;
+import com.example.tour_planner.view.TourOverviewController;
 import com.example.tour_planner.viewmodel.MainWindowViewModel;
 import com.example.tour_planner.viewmodel.TourOverviewViewModel;
 import com.example.tour_planner.viewmodel.SearchBarViewModel;

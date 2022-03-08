@@ -1,4 +1,4 @@
-package com.example.tour_planner;
+package com.example.tour_planner.view;
 
 
 import com.example.tour_planner.viewmodel.SearchBarViewModel;

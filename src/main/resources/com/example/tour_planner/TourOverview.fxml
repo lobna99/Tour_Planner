@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.tour_planner.TourOverviewController">
+      fx:controller="com.example.tour_planner.view.TourOverviewController">
     <ToolBar>
         <Label text="%TourOverview_Items"/>
         <Pane HBox.hgrow="ALWAYS"/>

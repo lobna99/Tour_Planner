@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.tour_planner.SearchBarController">
+      fx:controller="com.example.tour_planner.view.SearchBarController">
     <userData>
         <fx:reference source="controller"/>
     </userData>
