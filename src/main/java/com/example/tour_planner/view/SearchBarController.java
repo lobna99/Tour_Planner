@@ -28,7 +28,6 @@ public class SearchBarController {
         searchTextField.textProperty().bindBidirectional( searchBarViewModel.searchStringProperty() );
         searchButton.disableProperty().bind( searchBarViewModel.searchDisabledBinding() );
     }
-
     public void onSearchButton(ActionEvent actionEvent) {
         searchBarViewModel.doSearch();
     }

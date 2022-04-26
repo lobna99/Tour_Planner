@@ -14,5 +14,5 @@
         <Button text="-" onAction="#onButtonRemove"/>
         <Button text="..."/>
     </ToolBar>
-    <ListView fx:id="mediaItemList" VBox.vgrow="ALWAYS"/>
+    <ListView fx:id="tourList" VBox.vgrow="ALWAYS"/>
 </VBox>

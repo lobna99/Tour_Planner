@@ -15,7 +15,7 @@ public class TourOverviewViewModel {
 
     private List<SelectionChangedListener> listeners = new ArrayList<>();
 
-    private ObservableList<Tour> observableMediaItems = FXCollections.observableArrayList();
+    private ObservableList<Tour> observabletours = FXCollections.observableArrayList();
 
     /*public MediaOverviewViewModel()
     {
@@ -23,7 +23,7 @@ public class TourOverviewViewModel {
     }*/
 
     public ObservableList<Tour> getObservableTours() {
-        return observableMediaItems;
+        return observabletours;
     }
 
     public ChangeListener<Tour> getChangeListener() {
@@ -38,24 +38,24 @@ public class TourOverviewViewModel {
         listeners.remove(listener);
     }
 
-    private void notifyListeners(Tour newValue) {
+    private void notifyListeners(Tour newTour) {
         for ( var listener : listeners ) {
-            listener.changeSelection(newValue);
+            listener.changeSelection(newTour);
         }
     }
 
-    public void setTours(List<Tour> mediaItems) {
-        observableMediaItems.clear();
-        observableMediaItems.addAll(mediaItems);
+    public void setTours(List<Tour> tours) {
+        observabletours.clear();
+        observabletours.addAll(tours);
     }
 
-    /*public void addNewTour() {
-        var tour = DAL.getInstance().tourDao().create();
-        observableMediaItems.add(tour);
+    public void addNewTour() {
+        //var tour = DALobject.getInstance().tourDao().create();
+        //observabletours.add(tour);
     }
 
-    public void deleteTour(Tour mediaItem) {
-        DAL.getInstance().tourDao().delete(mediaItem);
-        observableMediaItems.remove(mediaItem);
-    }*/
+    public void deleteTour(Tour tour) {
+        //DALobject.getInstance().tourDao().delete(tour);
+        observabletours.remove(tour);
+    }
 }

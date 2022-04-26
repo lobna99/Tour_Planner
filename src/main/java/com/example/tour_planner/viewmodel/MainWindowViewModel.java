@@ -1,17 +1,13 @@
 package com.example.tour_planner.viewmodel;
 
-import com.example.tour_planner.model.Tour;
-import com.example.tour_planner.viewmodel.SearchBarViewModel;
-import com.example.tour_planner.viewmodel.TourOverviewViewModel;
-
 public class MainWindowViewModel {
     private SearchBarViewModel searchBarViewModel;
-    private TourOverviewViewModel mediaOverviewViewModel;
+    private TourOverviewViewModel tourOverviewViewModel;
     //private MediaDetailsViewModel mediaDetailsViewModel;
 
     public MainWindowViewModel(SearchBarViewModel searchBarViewModel, TourOverviewViewModel mediaOverviewViewModel) {
         this.searchBarViewModel = searchBarViewModel;
-        this.mediaOverviewViewModel = mediaOverviewViewModel;
+        this.tourOverviewViewModel = mediaOverviewViewModel;
         //this.mediaDetailsViewModel = mediaDetailsViewModel;
 
         //this.searchBarViewModel.addSearchListener(searchString->searchTours(searchString));
