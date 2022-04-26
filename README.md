@@ -129,3 +129,7 @@ o unit test design
 o time spent
 o link to git
 • 5: bonus points (but not more than 60 points overall!)
+
+
+[TourPlanner_Specification.pdf](https://github.com/lobna99/Tour_Planner/files/8561944/TourPlanner_Specification.pdf)
+
