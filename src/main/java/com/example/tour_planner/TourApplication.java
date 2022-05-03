@@ -18,9 +18,14 @@ public class TourApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLDependencyInjection.load("MainWindow.fxml", Locale.GERMAN);  // Locale.GERMANY, Locale.ENGLISH
         Scene scene = new Scene(root);
+
+
         primaryStage.setScene(scene);
-        scene.getStylesheets().add(String.valueOf(this.getClass().getResource("css/main.css")));
+
+        //scene.getStylesheets().add(getClass().getClassLoader().getResource("images\\stylesheet.css"));
         primaryStage.setTitle("Tour planner");
+        //scene.getStylesheets().add("/com/example/tour_planner/css/main.css");
+        //scene.getStylesheets().add( getClass().getResource( "C:\\Users\\inaap\\Dokumente\\GitHub\\src\\main\\resources\\css\\main.css" ).toExternalForm() );
         primaryStage.show();
     }
 }

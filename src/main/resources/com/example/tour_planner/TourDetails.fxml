@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.tour_planner.view.TourDetailsController">
+    <TextField text="%Details_From"/>
+    <Text fx:id="fromDetail"/>
+    <TextField text="%Details_Name"/>
+    <Text fx:id="nameDetail"/>
+    <TextField text="%Details_Description"/>
+    <Text fx:id="descriptionDetail"/>
+    <TextField text="%Details_To"/>
+    <Text fx:id="toDetail"/>
+    <TextField text="%Details_Transport_Type"/>
+    <Text fx:id="transportTypeDetail"/>
+    <TextField text="%Details_Distance"/>
+    <Text fx:id="distanceDetail"/>
+    <TextField text="%Details_Time"/>
+    <Text fx:id="timeDetail"/>
+    <TextField text="%Details_Info"/>
+    <Text fx:id="infoDetail"/>
+    <ImageView fx:id="ivMap">
+        <Image fx:id="imgMap" url=""/>
+    </ImageView>
+</VBox>
