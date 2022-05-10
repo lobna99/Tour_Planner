@@ -2,11 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.tour_planner.view.MainWindowController"
-      prefHeight="400.0" prefWidth="600.0">
-    <MenuBar>
+
+<?import java.net.URL?>
+<VBox
+        styleClass="purple"
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="com.example.tour_planner.view.MainWindowController"
+        prefHeight="400.0" prefWidth="600.0">
+    <MenuBar styleClass="purple">
         <Menu text="%Menu_File">
             <MenuItem text="%Menu_File_Import"/>
             <MenuItem text="%Menu_File_Export"/>
@@ -27,4 +31,7 @@
         <fx:include fx:id="tourOverview" source="TourOverview.fxml"/>
         <fx:include fx:id="tourDetails" source="TourDetails.fxml"/>
     </SplitPane>
+    <stylesheets>
+        <URL value="@main.css" />
+    </stylesheets>
 </VBox>
