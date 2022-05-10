@@ -1,5 +1,7 @@
 package com.example.tour_planner.dal;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,11 +15,11 @@ public interface Dao<T> {
 
     Optional<T> get(int id);
 
-    List<T> getAll();
+    List<T> getAll() throws SQLException;
 
-    void create(T tr);
+    void create(T tr) throws SQLException, ParseException;
 
     void update(T t, List<?> params);
 
-    void delete(T t);
+    void delete(T t) throws SQLException;
 }
