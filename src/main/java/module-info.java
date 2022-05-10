@@ -3,6 +3,9 @@ module com.example.tour_planner {
     requires javafx.fxml;
     requires java.sql;
     requires json;
+    requires jackson.core.asl;
+    requires jackson.mapper.asl;
+    requires java.desktop;
 
 
     opens com.example.tour_planner to javafx.fxml;
