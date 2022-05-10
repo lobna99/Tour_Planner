@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourDetailsController">
+    <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS">
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <Tab text="%MediaDetails_Tab_Content">
+                <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <Label layoutY="25.0" text="%Details_From" />
+                    <TextField fx:id="fromDetail" layoutX="106.0" layoutY="21.0" prefHeight="18.0" prefWidth="87.0" />
+                    <Label layoutY="1.0" text="%Details_Name" />
+                    <TextField fx:id="nameDetail" layoutX="110.0" layoutY="1.0" prefHeight="18.0" prefWidth="72.0" />
+                    <Label layoutX="212.0" layoutY="1.0" text="%Details_Description" />
+                    <TextField fx:id="descriptionDetail" layoutX="234.0" layoutY="72.0" prefHeight="26.0" prefWidth="68.0" />
+                    <Label layoutY="51.0" text="%Details_To" />
+                    <TextField fx:id="toDetail" layoutX="112.0" layoutY="47.0" prefHeight="18.0" prefWidth="68.0" />
+                    <Label layoutY="77.0" text="%Details_Transport_Type" />
+                    <TextField fx:id="typeDetail" layoutX="146.0" layoutY="73.0" prefHeight="18.0" prefWidth="73.0" />
+                    <Label layoutY="103.0" text="%Details_Distance" />
+                    <TextField fx:id="distanceDetail" layoutX="118.0" layoutY="98.0" prefHeight="26.0" prefWidth="108.0" />
+                    <Label layoutY="129.0" text="%Details_Time" />
+                    <TextField fx:id="timeDetail" layoutX="104.0" layoutY="125.0" prefHeight="18.0" prefWidth="90.0" />
+                    <Label layoutX="232.0" layoutY="60.0" text="%Details_Info" />
+                    <TextField fx:id="infoDetail" layoutX="218.0" layoutY="20.0" prefHeight="26.0" prefWidth="99.0" />
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="%MediaDetails_Tab_Image">
+                <ImageView fx:id="ivMap">
+                </ImageView>
+            </Tab>
+        </TabPane>
+    </SplitPane>
+</VBox>

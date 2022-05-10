@@ -13,18 +13,18 @@
             <MenuItem text="%Menu_File_Quit" />
         </Menu>
         <Menu text="%Menu_Edit">
-            <MenuItem text="%Menu_Edit_Duplicate"/>
+            <MenuItem text="%Menu_Edit_Duplicate" onAction="#onMenuFileQuitClicked"/>
         </Menu>
         <Menu text="%Menu_Options">
             <MenuItem mnemonicParsing="false" text="%Menu_Options_Settings"/>
         </Menu>
         <Menu text="%Menu_Help">
-            <MenuItem text="%Menu_Help_About" />
+            <MenuItem text="%Menu_Help_About" onAction="#onMenuHelpAboutClicked" />
         </Menu>
     </MenuBar>
     <fx:include fx:id="searchbar" source="Searchbar.fxml"/>
     <SplitPane dividerPositions="0.3" VBox.vgrow="ALWAYS">
         <fx:include fx:id="tourOverview" source="TourOverview.fxml"/>
-        <!--<fx:include fx:id="mediaDetails" source="MediaDetails.fxml"/>!-->
+        <fx:include fx:id="tourDetails" source="TourDetails.fxml"/>
     </SplitPane>
 </VBox>
