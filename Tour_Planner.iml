@@ -13,6 +13,8 @@
     <orderEntry type="library" name="postgresql" level="project" />
     <orderEntry type="library" name="codehaus.jackson.mapper.asl" level="project" />
     <orderEntry type="library" name="gaixie.json" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.14.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.14.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.11.0" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:18.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:18.0.1" level="project" />

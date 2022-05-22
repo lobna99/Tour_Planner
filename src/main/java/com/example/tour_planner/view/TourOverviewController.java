@@ -49,7 +49,9 @@ public class TourOverviewController {
 
     public void onButtonRemove(ActionEvent actionEvent) {
         try {
-            tourOverviewViewModel.deleteTour(tourList.getSelectionModel().getSelectedItem());
+            if(tourList.getSelectionModel().getSelectedItem()!=null) {
+                tourOverviewViewModel.deleteTour(tourList.getSelectionModel().getSelectedItem());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

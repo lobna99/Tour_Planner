@@ -14,7 +14,7 @@ public class MainWindowController {
     // tutorial see https://riptutorial.com/javafx/example/7285/nested-controllers
     @FXML private SearchBarController searchBarController;    // injected controller of SearchBar.fxml
     @FXML private TourOverviewViewModel mediaOverviewController;    // injected controller of MediaOverview.fxml
-    //@FXML private MediaDetailsController mediaDetailsController;    // injected controller of MediaDetails.fxml
+    @FXML private TourDetailsController mediaDetailsController;    // injected controller of MediaDetails.fxml
 
     private final MainWindowViewModel mainViewModel;
 
