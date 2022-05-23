@@ -1,7 +1,7 @@
-package com.example.tour_planner.dal;
+package com.example.tour_planner.DAL.DAOs;
 
 
-import com.example.tour_planner.dal.db.getDBConnection;
+import com.example.tour_planner.DAL.db.DBconnection;
 import com.example.tour_planner.model.Tour;
 
 import java.sql.PreparedStatement;
@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TourDao implements Dao<Tour>, getDBConnection {
+public class TourDao implements Dao<Tour> {
     @Override
     public Optional<Tour> get(int id) {
         return Optional.empty();
     }
 
     @Override
-    public List<Tour> getAll() throws SQLException {
+    public List<Tour> getAll(String name) throws SQLException {
         ArrayList<Tour> tours = new ArrayList<Tour>();
-        PreparedStatement statement = Connection.getConnection().prepareStatement("""
+        PreparedStatement statement = DBconnection.getConnection().prepareStatement("""
                     SELECT *
                     FROM tour
                 """);
@@ -38,7 +38,7 @@ public class TourDao implements Dao<Tour>, getDBConnection {
     public void create(Tour tour) throws SQLException, ParseException {
 
         PreparedStatement statement = null;
-        statement = Connection.getConnection().prepareStatement("""
+        statement = DBconnection.getConnection().prepareStatement("""
                  INSERT INTO tour ("Date", "Duration", "Distance", "Name", "From", "To", "Transport_type", route_info)
                  VALUES(?,?,?,?,?,?,?,?)
                 """);
@@ -62,7 +62,7 @@ public class TourDao implements Dao<Tour>, getDBConnection {
 
     @Override
     public void delete(Tour tour) throws SQLException {
-        PreparedStatement statement = Connection.getConnection().prepareStatement("""
+        PreparedStatement statement = DBconnection.getConnection().prepareStatement("""
                          DELETE
                          FROM tour
                          WHERE "Name"=?;
@@ -71,4 +71,5 @@ public class TourDao implements Dao<Tour>, getDBConnection {
         statement.execute();
         statement.close();
     }
+
 }

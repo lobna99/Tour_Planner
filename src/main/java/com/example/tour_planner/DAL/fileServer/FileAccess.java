@@ -1,4 +1,4 @@
-package com.example.tour_planner.dal.fileServer;
+package com.example.tour_planner.DAL.fileServer;
 
 import com.example.tour_planner.model.TourTypes;
 

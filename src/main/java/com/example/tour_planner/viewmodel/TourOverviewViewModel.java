@@ -1,7 +1,7 @@
 package com.example.tour_planner.viewmodel;
 
-import com.example.tour_planner.dal.DAL;
-import com.example.tour_planner.dal.http.HttpRequest;
+import com.example.tour_planner.DAL.DAL;
+import com.example.tour_planner.DAL.http.HttpRequest;
 import com.example.tour_planner.model.Tour;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -11,33 +11,37 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TourOverviewViewModel {
+
+
     public interface SelectionChangedListener {
         void changeSelection(Tour mediaItem);
     }
 
-    private List<SelectionChangedListener> listeners = new ArrayList<>();
+    private final List<SelectionChangedListener> listeners = new ArrayList<>();
 
-    private ObservableList<Tour> observabletours = FXCollections.observableArrayList();
+    private final ObservableList<Tour> observableTours = FXCollections.observableArrayList();
 
     public TourOverviewViewModel()
     {
         try {
-            setTours( DAL.getInstance().tourDao().getAll() );
+            setTours( DAL.getInstance().tourDao().getAll("") );
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public void generateTourReport(Tour selectedItem) throws IOException {
+        DAL.getInstance().reportWriter().createTourReport(selectedItem);
+    }
+
     public ObservableList<Tour> getObservableTours() {
-        return observabletours;
+        return observableTours;
     }
 
     public ChangeListener<Tour> getChangeListener() {
@@ -59,22 +63,22 @@ public class TourOverviewViewModel {
     }
 
     public void setTours(List<Tour> tours) {
-        observabletours.clear();
-        observabletours.addAll(tours);
+        observableTours.clear();
+        observableTours.addAll(tours);
     }
 
-    public void addNewTour(String From, String To, String text, LocalDate converter) throws JSONException, IOException, ParseException, SQLException {
-        JsonNode obj;
-        HttpRequest request = new HttpRequest();
-            obj = request.getJsonnode(request.getResponse("https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from=" + From + "&to=" + To + ""));
-            request.saveImg("https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&size=650,650&defaultMarker=none&zoom=8&session=" + obj.get("route").get("sessionId").getTextValue(),text);
-            Tour tour= new Tour(1,text,converter.toString(),From,To,obj.get("route").get("formattedTime").getTextValue(),obj.get("route").get("distance").getDoubleValue(),"");
+    public void addNewTour(String From, String To, String text, LocalDate converter, String descripText) throws JSONException, IOException, ParseException, SQLException {
+            JsonNode obj;
+            obj = HttpRequest.getJsonnode(HttpRequest.getResponse("https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from=" + From + "&to=" + To + ""));
+        assert obj != null;
+        HttpRequest.saveImg("https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&size=650,650&defaultMarker=none&zoom=8&session=" + obj.get("route").get("sessionId").getTextValue(),text);
+            Tour tour= new Tour(1,text,converter.toString(),From,To,obj.get("route").get("formattedTime").getTextValue(),obj.get("route").get("distance").getDoubleValue(),descripText);
             DAL.getInstance().tourDao().create(tour);
-            observabletours.add(tour);
+            observableTours.add(tour);
     }
 
     public void deleteTour(Tour tour) throws SQLException {
         DAL.getInstance().tourDao().delete(tour);
-        observabletours.remove(tour);
+        observableTours.remove(tour);
     }
 }

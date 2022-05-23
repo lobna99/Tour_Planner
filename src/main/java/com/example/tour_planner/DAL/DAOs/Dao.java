@@ -1,4 +1,4 @@
-package com.example.tour_planner.dal;
+package com.example.tour_planner.DAL.DAOs;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -15,11 +15,13 @@ public interface Dao<T> {
 
     Optional<T> get(int id);
 
-    List<T> getAll() throws SQLException;
+    List<T> getAll(String name) throws SQLException;
 
     void create(T tr) throws SQLException, ParseException;
 
     void update(T t, List<?> params);
 
     void delete(T t) throws SQLException;
+
+
 }

@@ -59,4 +59,8 @@ public class Tour implements Serializable {
         return transport_type;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

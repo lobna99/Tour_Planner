@@ -1,11 +1,17 @@
 package com.example.tour_planner.viewmodel;
 
-import com.example.tour_planner.dal.DAL;
+import com.example.tour_planner.DAL.DAL;
 import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.model.TourLog;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Arrays;
+import java.util.List;
 
 public class TourDetailsViewModel {
     private Tour tour;
@@ -18,8 +24,18 @@ public class TourDetailsViewModel {
     private final DoubleProperty distance = new SimpleDoubleProperty();
     private final StringProperty plannedTime = new SimpleStringProperty();
     private ObjectProperty<Image> map = new SimpleObjectProperty<>();
+    private final ObservableList<TourLog> observableLogs = FXCollections.observableArrayList();
 
+    public ObservableList<TourLog> getObservableTourLogs() {
+        return observableLogs;
+    }
     public TourDetailsViewModel() {
+        try {
+
+            setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         name.addListener((arg, oldVal, newVal) -> updateTourModel());
     }
 
@@ -90,5 +106,18 @@ public class TourDetailsViewModel {
             DAL.getInstance().tourDao().update(tour, Arrays.asList(name.get(), distance.get(), plannedTime.get()));
     }
 
+    public void setTourLogs(List<TourLog> tourLogs) {
+        observableLogs.clear();
+        observableLogs.addAll(tourLogs);
+    }
 
+    public void addLog(String comment, String totaltime, String diff, String rating) {
+        TourLog tourLog = new TourLog("",comment,Integer.parseInt(diff),totaltime,Integer.parseInt(rating),name.get());
+        try {
+            DAL.getInstance().tourLogDao().create(tourLog);
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        }
+        observableLogs.add(tourLog);
+    }
 }

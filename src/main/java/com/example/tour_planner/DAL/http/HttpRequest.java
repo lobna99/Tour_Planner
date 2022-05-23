@@ -1,8 +1,8 @@
-package com.example.tour_planner.dal.http;
+package com.example.tour_planner.DAL.http;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.json.JSONException;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.RenderedImage;
@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class HttpRequest {
 
-    public String getResponse(String url) throws IOException{
+    public static String getResponse(String url) throws IOException{
 
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -38,7 +38,7 @@ public class HttpRequest {
 
     }
 
-    public JsonNode getJsonnode(String content) {
+    public static JsonNode getJsonnode(String content) {
         ObjectMapper mapper = new ObjectMapper();
         if (!Objects.equals(content, "")) {
             try {
@@ -50,7 +50,7 @@ public class HttpRequest {
         return null;
     }
 
-    public void saveImg(String url,String name) throws IOException {
+    public static void saveImg(String url, String name) throws IOException {
 
         Image image = null;
         URL obj = new URL(url);

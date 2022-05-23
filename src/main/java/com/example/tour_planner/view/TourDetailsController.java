@@ -1,7 +1,10 @@
 package com.example.tour_planner.view;
 
 import com.example.tour_planner.viewmodel.TourDetailsViewModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,6 +28,13 @@ public class TourDetailsController {
 
     private final TourDetailsViewModel tourDetailsViewModel;
     public TextArea description;
+    public TableView LogTable;
+    public TableColumn time;
+    public TableColumn rating;
+    public TableColumn total_time;
+    public TableColumn comment;
+    public TableColumn difficulty;
+
 
     public TourDetailsController(TourDetailsViewModel mediaDetailsViewModel) {
         this.tourDetailsViewModel = mediaDetailsViewModel;
@@ -36,6 +46,7 @@ public class TourDetailsController {
 
     @FXML
     void initialize() {
+        LogTable.setItems(tourDetailsViewModel.getObservableTourLogs());
         nameDetail.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
         fromDetail.textProperty().bindBidirectional(tourDetailsViewModel.fromProperty());
         toDetail.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());
@@ -43,5 +54,12 @@ public class TourDetailsController {
         distanceDetail.textProperty().bindBidirectional(tourDetailsViewModel.distanceProperty(), NumberFormat.getInstance());
         typeDetail.textProperty().bindBidirectional(tourDetailsViewModel.typeProperty(),NumberFormat.getInstance());
         ivMap.imageProperty().bindBidirectional(tourDetailsViewModel.mapProperty());
+    }
+
+    public void onButtonAddLog(ActionEvent actionEvent) {
+        FormsHandler.logForm(tourDetailsViewModel);
+    }
+
+    public void onButtonRemoveLog(ActionEvent actionEvent) {
     }
 }
