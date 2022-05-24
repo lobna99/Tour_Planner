@@ -1,4 +1,4 @@
-package com.example.tour_planner.DAL.http;
+package com.example.tour_planner.DAL.api;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;

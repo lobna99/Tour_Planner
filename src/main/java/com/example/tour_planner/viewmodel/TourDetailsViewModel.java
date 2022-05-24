@@ -4,14 +4,17 @@ import com.example.tour_planner.DAL.DAL;
 import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.model.TourLog;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class TourDetailsViewModel {
     private Tour tour;
@@ -20,15 +23,41 @@ public class TourDetailsViewModel {
     private final StringProperty name = new SimpleStringProperty();
     private final StringProperty from = new SimpleStringProperty();
     private final StringProperty to = new SimpleStringProperty();
+    private final StringProperty info = new SimpleStringProperty();
     private final IntegerProperty type = new SimpleIntegerProperty();
     private final DoubleProperty distance = new SimpleDoubleProperty();
     private final StringProperty plannedTime = new SimpleStringProperty();
     private ObjectProperty<Image> map = new SimpleObjectProperty<>();
+
+
+    public interface SelectionChangedListener {
+        void changeSelection(TourLog TourLog);
+    }
+
+    private final List<SelectionChangedListener> listeners = new ArrayList<>();
+
+    public void addSelectionChangedListener(SelectionChangedListener listener) {
+        listeners.add(listener);
+    }
+
     private final ObservableList<TourLog> observableLogs = FXCollections.observableArrayList();
 
     public ObservableList<TourLog> getObservableTourLogs() {
         return observableLogs;
     }
+
+    public ChangeListener<TourLog> getChangeListener() {
+        return (observableValue, oldValue, newValue) -> notifyListeners(newValue);
+    }
+
+    private void notifyListeners(TourLog newTour) {
+        for (var listener : listeners) {
+            listener.changeSelection(newTour);
+        }
+    }
+
+
+
     public TourDetailsViewModel() {
         try {
 
@@ -43,6 +72,9 @@ public class TourDetailsViewModel {
     public String getName() {
         return name.get();
     }
+    public String getInfo() {
+        return info.get();
+    }
 
     public ObjectProperty<Image> mapProperty() {
         return map;
@@ -54,6 +86,10 @@ public class TourDetailsViewModel {
 
     public StringProperty fromProperty() {
         return from;
+    }
+
+    public StringProperty infoProperty() {
+        return info;
     }
 
     public StringProperty toProperty() {
@@ -80,31 +116,39 @@ public class TourDetailsViewModel {
         return plannedTime;
     }
 
-    public void setTourModel(Tour mediaItemModel) {
+    public void setTourModel(Tour TourModel) {
         isInitValue = true;
-        if (mediaItemModel == null) {
+        if (TourModel == null) {
             // select the first in the list
             name.set("");
             plannedTime.set("00:00:00");
             distance.set(0.0);
-            plannedTime.set("");
             return;
         }
-        this.tour = mediaItemModel;
-        name.setValue(mediaItemModel.getName());
-        distance.set(mediaItemModel.getDistance());
-        from.setValue(mediaItemModel.getFrom());
-        to.setValue(mediaItemModel.getTo());
-        type.setValue(mediaItemModel.getTransport_type());
-        plannedTime.set(mediaItemModel.getDuration());
-        map.set( new Image("file:src/main/resources/com/example/tour_planner/maps/" + mediaItemModel.getName()+ "_map.jpg"));
+        this.tour = TourModel;
+        name.setValue(TourModel.getName());
+        distance.set(TourModel.getDistance());
+        from.setValue(TourModel.getFrom());
+        to.setValue(TourModel.getTo());
+        type.setValue(TourModel.getTransport_type());
+        plannedTime.set(TourModel.getDuration());
+        info.setValue(TourModel.getContent());
+        map.set( new Image("file:src/main/resources/com/example/tour_planner/maps/" + TourModel.getName()+ "_map.jpg"));
         isInitValue = false;
     }
 
+
     private void updateTourModel() {
-        if (!isInitValue)
-            DAL.getInstance().tourDao().update(tour, Arrays.asList(name.get(), distance.get(), plannedTime.get()));
+        if (!isInitValue) {
+            try {
+                DAL.getInstance().tourDao().update(tour, Arrays.asList(name.get(),from.get(),to.get(),type.get(), distance.get(), plannedTime.get(),info.get()));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
+
+
 
     public void setTourLogs(List<TourLog> tourLogs) {
         observableLogs.clear();

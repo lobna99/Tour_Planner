@@ -8,9 +8,9 @@ public class MainWindowViewModel {
     private TourOverviewViewModel tourOverviewViewModel;
     private TourDetailsViewModel tourDetailsViewModel;
 
-    public MainWindowViewModel(SearchBarViewModel searchBarViewModel, TourOverviewViewModel mediaOverviewViewModel,TourDetailsViewModel tourDetailsViewModel) {
+    public MainWindowViewModel(SearchBarViewModel searchBarViewModel, TourOverviewViewModel tourOverviewViewModel,TourDetailsViewModel tourDetailsViewModel) {
         this.searchBarViewModel = searchBarViewModel;
-        this.tourOverviewViewModel = mediaOverviewViewModel;
+        this.tourOverviewViewModel = tourOverviewViewModel;
         this.tourDetailsViewModel =tourDetailsViewModel;
 
         this.searchBarViewModel.addSearchListener(searchString->searchTours(searchString));
@@ -19,15 +19,15 @@ public class MainWindowViewModel {
             @Override
             public void search(String searchString) {
                 var tours = BL.getInstance().findMatchingTours( searchString );
-                tourOverviewViewModel.setTours(tours);
+                MainWindowViewModel.this.tourOverviewViewModel.setTours(tours);
             }
         });
 
         this.tourOverviewViewModel.addSelectionChangedListener(selectedTour->selectTour(selectedTour));
     }
 
-    private void selectTour(Tour selectedMediaItem) {
-        tourDetailsViewModel.setTourModel(selectedMediaItem);
+    private void selectTour(Tour selectedTour) {
+        tourDetailsViewModel.setTourModel(selectedTour);
     }
 
     private void searchTours(String searchString) {

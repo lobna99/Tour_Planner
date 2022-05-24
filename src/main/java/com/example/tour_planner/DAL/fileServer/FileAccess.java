@@ -1,6 +1,12 @@
 package com.example.tour_planner.DAL.fileServer;
 
+import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.model.TourTypes;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -45,12 +51,12 @@ public class FileAccess {
         return queryMatchingFiles;
     }
 
-    public int CreateNewMediaItemFile(String name, String annotation, String url, LocalDateTime creationTime) throws IOException {
+    public int CreateTourFile(String name, String annotation, String url, LocalDateTime creationTime) throws IOException {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         int id = UUID.randomUUID().hashCode();
 
-        String fileName = id + "_mediaItem.txt";
+        String fileName = id + "_tour.txt";
         String path = GetFullPath(fileName);
         FileWriter file = new FileWriter(path);
 
@@ -105,4 +111,53 @@ public class FileAccess {
             return name.toLowerCase().endsWith(extension);
         }
     }
+
+    public void importTour(){
+
+        //JSON parser object to parse read file
+        JSONParser jsonParser = new JSONParser();
+
+        try (FileReader reader = new FileReader("employees.json"))
+        {
+            //Read JSON file
+            Object obj = jsonParser.parse(reader);
+
+            JSONArray employeeList = (JSONArray) obj;
+            System.out.println(employeeList);
+
+            //Iterate over employee array
+            //employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void exportTour(Tour tour) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        //Inserting key-value pairs into the json object
+        jsonObject.put("Name",tour.getName());
+        jsonObject.put("From", tour.getFrom());
+        jsonObject.put("To", tour.getTo());
+        jsonObject.put("Distance", tour.getDistance());
+        jsonObject.put("Duration", tour.getDuration());
+        jsonObject.put("Transportation_Type", tour.getTransport_type());
+        jsonObject.put("Content", tour.getContent());
+        try {
+            FileWriter file = new FileWriter("src/main/java/com/example/tour_planner/DAL/fileServer/exportedData/"+tour.getName()+".json");
+            file.write(jsonObject.toString());
+            file.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println("JSON file created: "+jsonObject);
+    }
+
 }

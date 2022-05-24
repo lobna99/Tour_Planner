@@ -10,6 +10,7 @@ module com.example.tour_planner {
     requires io;
     requires kernel;
     requires layout;
+    requires json.simple;
 
 
     opens com.example.tour_planner to javafx.fxml;

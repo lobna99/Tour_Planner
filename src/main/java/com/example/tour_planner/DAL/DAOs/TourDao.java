@@ -4,6 +4,8 @@ package com.example.tour_planner.DAL.DAOs;
 import com.example.tour_planner.DAL.db.DBconnection;
 import com.example.tour_planner.model.Tour;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,8 +58,39 @@ public class TourDao implements Dao<Tour> {
     }
 
     @Override
-    public void update(Tour tour, List<?> params) {
+    public void update(Tour tour, List<?> params) throws SQLException {
+        PreparedStatement statement = DBconnection.getConnection().prepareStatement("""
+                         UPDATE tour 
+                         SET "Name"=?,"Duration"=?,"Distance"=?,"From"=?,"To"=?,"Transport_type"=?,route_info=?
+                         WHERE "Name"=?
+                         """);
+        statement.setString(1, String.valueOf(params.get(0)));
+        statement.setString(2, String.valueOf(params.get(5)));
+        statement.setDouble(3, Double.parseDouble(params.get(4).toString()));
+        statement.setString(4, String.valueOf(params.get(1)));
+        statement.setString(5, String.valueOf(params.get(2)));
+        statement.setInt(6, Integer.parseInt(params.get(3).toString()));
+        statement.setString(7, String.valueOf(params.get(6)));
+        statement.setString(8, tour.getName());
+        statement.executeUpdate();
+        statement.close();
+        File file = new File("src/main/resources/com/example/tour_planner/maps/"+tour.getName()+"_map.jpg");
 
+// File (or directory) with new name
+        File file2 = new File("src/main/resources/com/example/tour_planner/maps/"+params.get(0).toString()+"_map.jpg");
+
+        if (file2.exists())
+            try {
+                throw new java.io.IOException("file exists");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+// Rename file (or directory)
+        boolean success = file.renameTo(file2);
+        if (!success) {
+            // File was not successfully renamed
+        }
     }
 
     @Override

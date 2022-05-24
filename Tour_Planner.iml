@@ -21,6 +21,9 @@
     <orderEntry type="library" name="Maven: com.itextpdf:io:7.2.0" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:commons:7.2.0" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:layout:7.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:4.10" level="project" />
+    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.17.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.17.2" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.11.0" level="project" />

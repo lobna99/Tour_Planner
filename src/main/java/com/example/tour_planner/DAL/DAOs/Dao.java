@@ -19,7 +19,7 @@ public interface Dao<T> {
 
     void create(T tr) throws SQLException, ParseException;
 
-    void update(T t, List<?> params);
+    void update(T t, List<?> params) throws SQLException;
 
     void delete(T t) throws SQLException;
 

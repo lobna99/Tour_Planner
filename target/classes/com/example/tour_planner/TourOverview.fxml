@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.tour_planner.view.TourOverviewController">
     <ToolBar>
         <Label text="%TourOverview_Items"/>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button text="+" onAction="#onButtonAdd"/>
-        <Button text="-" onAction="#onButtonRemove"/>
-        <Button text="..."/>
+        <Button onAction="#onButtonAdd" text="+"/>
+        <Button onAction="#onButtonRemove" text="-"/>
+        <MenuButton text="..." textAlignment="JUSTIFY">
+            <items>
+                <MenuItem onAction="#onButtonTourReport" text="%tour_report"/>
+                <MenuItem onAction="#generateSummarizeReport" text="%summarize_report"/>
+            </items>
+        </MenuButton>
     </ToolBar>
     <ListView fx:id="tourList" VBox.vgrow="ALWAYS"/>
 </VBox>

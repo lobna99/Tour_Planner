@@ -1,7 +1,7 @@
 package com.example.tour_planner.viewmodel;
 
 import com.example.tour_planner.DAL.DAL;
-import com.example.tour_planner.DAL.http.HttpRequest;
+import com.example.tour_planner.DAL.api.HttpRequest;
 import com.example.tour_planner.model.Tour;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;

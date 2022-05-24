@@ -30,6 +30,7 @@ public class SearchBarViewModel {
         return isSearchDisabledBinding;
     }
 
+
     public void addSearchListener(SearchListener listener) {
         listeners.add(listener);
     }
