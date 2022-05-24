@@ -1,5 +1,7 @@
 package com.example.tour_planner.DAL.fileServer;
 
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.model.TourTypes;
 import org.json.JSONException;
@@ -17,6 +19,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class FileAccess {
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
     private String filePath;
 
     public FileAccess(String filePath) {
@@ -123,17 +126,13 @@ public class FileAccess {
             Object obj = jsonParser.parse(reader);
 
             JSONArray employeeList = (JSONArray) obj;
-            System.out.println(employeeList);
+            logger.debug(employeeList.toString());
 
             //Iterate over employee array
             //employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (IOException | ParseException e) {
+            logger.error(e.toString());
         }
     }
 
@@ -155,9 +154,9 @@ public class FileAccess {
             file.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error(e.toString());
         }
-        System.out.println("JSON file created: "+jsonObject);
+        logger.debug("JSON file created: "+jsonObject);
     }
 
 }

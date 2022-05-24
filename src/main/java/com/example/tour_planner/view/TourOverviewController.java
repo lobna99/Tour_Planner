@@ -1,6 +1,8 @@
 package com.example.tour_planner.view;
 
 
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.viewmodel.TourOverviewViewModel;
 import javafx.event.ActionEvent;
@@ -12,6 +14,9 @@ import java.sql.SQLException;
 
 
 public class TourOverviewController {
+
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
+
     @FXML
     public ListView<Tour> tourList;
 
@@ -41,7 +46,7 @@ public class TourOverviewController {
             if(tourList.getSelectionModel().getSelectedItem()!=null)
                 tourOverviewViewModel.deleteTour(tourList.getSelectionModel().getSelectedItem());
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
@@ -50,7 +55,7 @@ public class TourOverviewController {
             if(tourList.getSelectionModel().getSelectedItem()!=null)
                 tourOverviewViewModel.generateTourReport(tourList.getSelectionModel().getSelectedItem());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 

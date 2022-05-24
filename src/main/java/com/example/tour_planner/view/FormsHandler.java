@@ -1,5 +1,7 @@
 package com.example.tour_planner.view;
 
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.viewmodel.TourDetailsViewModel;
 import com.example.tour_planner.viewmodel.TourOverviewViewModel;
 import javafx.event.ActionEvent;
@@ -18,6 +20,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 public class FormsHandler {
+
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
+    private static Alert alert;
 
     public static void tourForm(TourOverviewViewModel tourOverviewViewModel) {
         Stage stage = new Stage();
@@ -47,9 +52,18 @@ public class FormsHandler {
             @Override
             public void handle(ActionEvent event) {
                 try {
+                    while (!From.getText().matches("[a-zA-z]*")
+                            || !To.getText().matches("[a-zA-z]*")
+                            || !To.getText().matches("[a-zA-z]*")
+                            || !Date.toString().matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
+                        logger.warn("Input is not in right format");
+                        alert.setAlertType(Alert.AlertType.WARNING);
+                        alert.setContentText("Input is not in right format");
+                        alert.show();
+                    }
                     tourOverviewViewModel.addNewTour(From.getText(), To.getText(), Name.getText(), Date.getValue(), Descrip.getText());
                 } catch (JSONException | IOException | SQLException | ParseException e) {
-                    e.printStackTrace();
+                    logger.error(e.toString());
                 }
                 stage.close(); // return to main window
             }
@@ -109,6 +123,12 @@ public class FormsHandler {
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                while(!totaltime.getText().matches("[0-9]*")) {
+                    logger.warn("Total Time Spent can only be a numeric value");
+                    alert.setAlertType(Alert.AlertType.WARNING);
+                    alert.setContentText("Total Time Spent can only be a numeric value");
+                    alert.show();
+                }
                 tourDetailsViewModel.addLog(comment.getText(), totaltime.getText(),((RadioButton) a.getToggleGroup().getSelectedToggle()).getText(), ((RadioButton) aR.getToggleGroup().getSelectedToggle()).getText());
                 stage.close(); // return to main window
             }
