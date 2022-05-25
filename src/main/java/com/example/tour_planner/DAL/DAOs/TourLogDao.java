@@ -30,7 +30,7 @@ public class TourLogDao implements Dao<TourLog> {
         statement.setString(1,name);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
-            tourLogs.add(new TourLog(rs.getTimestamp("time").toString(),rs.getString("comment"),rs.getInt("difficutly"),rs.getString("total time"),rs.getInt("rating"),rs.getString("tour")));
+            tourLogs.add(new TourLog(rs.getTimestamp("time").toString(),rs.getString("comment"),rs.getInt("difficulty"),rs.getString("total time"),rs.getInt("rating"),rs.getString("tour")));
         }
         rs.close();
         statement.close();

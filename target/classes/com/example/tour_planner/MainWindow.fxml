@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import java.net.URL?>
-<VBox
+<VBox fx:id="vbox"
         styleClass="purple"
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
@@ -12,12 +12,11 @@
         prefHeight="400.0" prefWidth="600.0">
     <MenuBar styleClass="purple">
         <Menu text="%Menu_File">
-            <MenuItem text="%Menu_File_Import"/>
-            <MenuItem text="%Menu_File_Export"/>
-            <MenuItem text="%Menu_File_Quit" />
+            <MenuItem text="%Menu_File_Import" onAction="#importTour"/>
+            <MenuItem text="%Menu_File_Quit" onAction="#onMenuFileQuitClicked" />
         </Menu>
         <Menu text="%Menu_Edit">
-            <MenuItem text="%Menu_Edit_Duplicate" onAction="#onMenuFileQuitClicked"/>
+            <MenuItem text="%Menu_Edit_Duplicate"/>
         </Menu>
         <Menu text="%Menu_Options">
             <MenuItem mnemonicParsing="false" text="%Menu_Options_Settings"/>
@@ -32,6 +31,6 @@
         <fx:include fx:id="tourDetails" source="TourDetails.fxml"/>
     </SplitPane>
     <stylesheets>
-        <URL value="@main.css" />
+<!--        <URL value="@main.css" />-->
     </stylesheets>
 </VBox>

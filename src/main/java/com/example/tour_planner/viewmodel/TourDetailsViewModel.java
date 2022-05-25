@@ -63,12 +63,11 @@ public class TourDetailsViewModel {
 
     public TourDetailsViewModel() {
         try {
-
             setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
         } catch (SQLException e) {
             logger.error(e.toString());
         }
-        name.addListener((arg, oldVal, newVal) -> updateTourModel());
+       // name.addListener((arg, oldVal, newVal) -> updateTourModel());
     }
 
 
@@ -136,6 +135,11 @@ public class TourDetailsViewModel {
         type.setValue(TourModel.getTransport_type());
         plannedTime.set(TourModel.getDuration());
         info.setValue(TourModel.getContent());
+        try {
+            setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         map.set( new Image("file:src/main/resources/com/example/tour_planner/maps/" + TourModel.getName()+ "_map.jpg"));
         isInitValue = false;
     }

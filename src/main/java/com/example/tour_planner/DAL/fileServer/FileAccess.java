@@ -1,22 +1,21 @@
 package com.example.tour_planner.DAL.fileServer;
 
+import com.example.tour_planner.DAL.DAL;
+import com.example.tour_planner.DAL.api.HttpRequest;
 import com.example.tour_planner.logger.ILoggerWrapper;
 import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.model.TourTypes;
+import org.codehaus.jackson.JsonNode;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.stream.Stream;
+import java.sql.SQLException;
+
 
 public class FileAccess {
     private static final ILoggerWrapper logger = LoggerFactory.getLogger();
@@ -125,13 +124,16 @@ public class FileAccess {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
 
-            JSONArray employeeList = (JSONArray) obj;
-            logger.debug(employeeList.toString());
-
+            JSONObject tourObj = (JSONObject) obj;
+            logger.debug((String) tourObj.get("Name"));
+            JsonNode node = HttpRequest.getJsonnode(HttpRequest.getResponse("https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from=" + tourObj.get("From") + "&to=" + tourObj.get("To") + ""));
+            assert node != null;
+            HttpRequest.saveImg("https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&size=650,650&defaultMarker=none&zoom=8&session=" + node.get("route").get("sessionId").getTextValue(),(String) tourObj.get("Name"));
+            Tour tour= new Tour(1,(String) tourObj.get("Name"),"",(String)tourObj.get("From"),(String)tourObj.get("To"),node.get("route").get("formattedTime").getTextValue(),node.get("route").get("distance").getDoubleValue(),(String)tourObj.get("Description"));
+            DAL.getInstance().tourDao().create(tour);
             //Iterate over employee array
             //employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
-
-        } catch (IOException | ParseException e) {
+        } catch (IOException | ParseException | SQLException | java.text.ParseException e) {
             logger.error(e.toString());
         }
     }

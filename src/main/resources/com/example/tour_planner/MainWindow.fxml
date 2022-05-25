@@ -13,7 +13,6 @@
     <MenuBar styleClass="purple">
         <Menu text="%Menu_File">
             <MenuItem text="%Menu_File_Import" onAction="#importTour"/>
-            <MenuItem text="%Menu_File_Export"/>
             <MenuItem text="%Menu_File_Quit" onAction="#onMenuFileQuitClicked" />
         </Menu>
         <Menu text="%Menu_Edit">

@@ -21,6 +21,14 @@ import java.util.List;
 public class TourOverviewViewModel {
     private static final ILoggerWrapper logger = LoggerFactory.getLogger();
 
+    public void exportTour(Tour selectedItem) {
+        try {
+            DAL.getInstance().fileAccess().exportTour(selectedItem);
+        } catch (JSONException e) {
+            logger.error(e.toString());
+        }
+    }
+
     public interface SelectionChangedListener {
         void changeSelection(Tour mediaItem);
     }

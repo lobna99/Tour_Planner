@@ -22,7 +22,7 @@ import java.text.ParseException;
 public class FormsHandler {
 
     private static final ILoggerWrapper logger = LoggerFactory.getLogger();
-    private static Alert alert;
+    private static Alert alert = new Alert(Alert.AlertType.NONE);
 
     public static void tourForm(TourOverviewViewModel tourOverviewViewModel) {
         Stage stage = new Stage();
@@ -52,15 +52,15 @@ public class FormsHandler {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    while (!From.getText().matches("[a-zA-z]*")
-                            || !To.getText().matches("[a-zA-z]*")
-                            || !To.getText().matches("[a-zA-z]*")
-                            || !Date.toString().matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
-                        logger.warn("Input is not in right format");
-                        alert.setAlertType(Alert.AlertType.WARNING);
-                        alert.setContentText("Input is not in right format");
-                        alert.show();
-                    }
+//                    while (!From.getText().matches("[a-zA-z]*")
+//                            || !To.getText().matches("[a-zA-z]*")
+//                            || !To.getText().matches("[a-zA-z]*")
+//                            || !Date.toString().matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
+//                        logger.warn("Input is not in right format");
+//                        alert.setAlertType(Alert.AlertType.WARNING);
+//                        alert.setContentText("Input is not in right format");
+//                        alert.show();
+//                    }
                     tourOverviewViewModel.addNewTour(From.getText(), To.getText(), Name.getText(), Date.getValue(), Descrip.getText());
                 } catch (JSONException | IOException | SQLException | ParseException e) {
                     logger.error(e.toString());
