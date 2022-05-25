@@ -1,6 +1,8 @@
 package com.example.tour_planner.viewmodel;
 
 import com.example.tour_planner.DAL.DAL;
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.model.TourLog;
 import javafx.beans.property.*;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class TourDetailsViewModel {
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
     private Tour tour;
     private volatile boolean isInitValue = false;
 
@@ -63,7 +66,7 @@ public class TourDetailsViewModel {
 
             setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
         name.addListener((arg, oldVal, newVal) -> updateTourModel());
     }
@@ -143,7 +146,7 @@ public class TourDetailsViewModel {
             try {
                 DAL.getInstance().tourDao().update(tour, Arrays.asList(name.get(),from.get(),to.get(),type.get(), distance.get(), plannedTime.get(),info.get()));
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.toString());
             }
         }
     }
@@ -160,7 +163,7 @@ public class TourDetailsViewModel {
         try {
             DAL.getInstance().tourLogDao().create(tourLog);
         } catch (SQLException | ParseException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
         observableLogs.add(tourLog);
     }

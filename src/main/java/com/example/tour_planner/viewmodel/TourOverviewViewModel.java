@@ -2,6 +2,8 @@ package com.example.tour_planner.viewmodel;
 
 import com.example.tour_planner.DAL.DAL;
 import com.example.tour_planner.DAL.api.HttpRequest;
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.model.Tour;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TourOverviewViewModel {
-
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
 
     public interface SelectionChangedListener {
         void changeSelection(Tour mediaItem);
@@ -32,7 +34,7 @@ public class TourOverviewViewModel {
         try {
             setTours( DAL.getInstance().tourDao().getAll("") );
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 

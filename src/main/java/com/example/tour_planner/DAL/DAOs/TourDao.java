@@ -2,6 +2,8 @@ package com.example.tour_planner.DAL.DAOs;
 
 
 import com.example.tour_planner.DAL.db.DBconnection;
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.model.Tour;
 
 import java.io.File;
@@ -15,6 +17,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class TourDao implements Dao<Tour> {
+
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
+
     @Override
     public Optional<Tour> get(int id) {
         return Optional.empty();
@@ -83,7 +88,7 @@ public class TourDao implements Dao<Tour> {
             try {
                 throw new java.io.IOException("file exists");
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.toString());
             }
 
 // Rename file (or directory)

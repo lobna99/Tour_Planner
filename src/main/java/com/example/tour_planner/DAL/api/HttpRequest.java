@@ -1,5 +1,7 @@
 package com.example.tour_planner.DAL.api;
 
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -13,6 +15,8 @@ import java.util.Objects;
 
 public class HttpRequest {
 
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
+
     public static String getResponse(String url) throws IOException{
 
         URL obj = new URL(url);
@@ -22,8 +26,8 @@ public class HttpRequest {
         //add request header
         con.setRequestProperty("User-Agent", "Mozilla/5.0");
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+        logger.debug("\nSending 'GET' request to URL : " + url);
+        logger.debug("Response Code : " + responseCode);
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
@@ -32,7 +36,7 @@ public class HttpRequest {
             response.append(inputLine);
         }
         in.close();
-        System.out.println(responseCode);
+        logger.debug(response.toString());
 
         return String.valueOf(response);
 
@@ -44,7 +48,7 @@ public class HttpRequest {
             try {
                 return mapper.readTree(content);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.toString());
             }
         }
         return null;

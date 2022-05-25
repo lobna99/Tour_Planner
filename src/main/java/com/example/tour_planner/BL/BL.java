@@ -1,5 +1,7 @@
 package com.example.tour_planner.BL;
 import com.example.tour_planner.DAL.DAL;
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.model.Tour;
 
 import java.sql.SQLException;
@@ -7,6 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BL {
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
+
     public List<Tour> findMatchingTours(String searchText) {
         try {
             List<Tour> tours = DAL.getInstance().tourDao().getAll("");
@@ -18,7 +22,7 @@ public class BL {
                 .filter(t->t.getName().toLowerCase().contains(searchText.toLowerCase()))
                 .collect(Collectors.toList());
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
         return  null;
     }
