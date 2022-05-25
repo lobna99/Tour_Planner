@@ -59,7 +59,6 @@ public class TourDetailsController {
 
         //LogTable.getSelectionModel().selectedItemProperty().addListener(tourDetailsViewModel.getChangeListener());
 
-
         nameDetail.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
         fromDetail.textProperty().bindBidirectional(tourDetailsViewModel.fromProperty());
         toDetail.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());

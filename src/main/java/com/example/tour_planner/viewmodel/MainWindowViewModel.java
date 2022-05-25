@@ -1,6 +1,7 @@
 package com.example.tour_planner.viewmodel;
 
 import com.example.tour_planner.BL.BL;
+import com.example.tour_planner.DAL.DAL;
 import com.example.tour_planner.model.Tour;
 
 public class MainWindowViewModel {
@@ -33,5 +34,9 @@ public class MainWindowViewModel {
     private void searchTours(String searchString) {
         var tours = BL.getInstance().findMatchingTours( searchString );
         tourOverviewViewModel.setTours(tours);
+    }
+
+    public void addImportTour(String path) {
+        DAL.getInstance().fileAccess().importTour(path);
     }
 }
