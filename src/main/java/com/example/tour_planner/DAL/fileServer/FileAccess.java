@@ -5,11 +5,9 @@ import com.example.tour_planner.DAL.api.HttpRequest;
 import com.example.tour_planner.logger.ILoggerWrapper;
 import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.model.Tour;
-import com.example.tour_planner.model.TourTypes;
 import org.codehaus.jackson.JsonNode;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
-import org.json.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -114,7 +112,7 @@ public class FileAccess {
 //        }
 //    }
 
-    public void importTour(String path){
+    public Tour importTour(String path){
 
         //JSON parser object to parse read file
         JSONParser jsonParser = new JSONParser();
@@ -131,11 +129,13 @@ public class FileAccess {
             HttpRequest.saveImg("https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&size=650,650&defaultMarker=none&zoom=8&session=" + node.get("route").get("sessionId").getTextValue(),(String) tourObj.get("Name"));
             Tour tour= new Tour(1,(String) tourObj.get("Name"),"",(String)tourObj.get("From"),(String)tourObj.get("To"),node.get("route").get("formattedTime").getTextValue(),node.get("route").get("distance").getDoubleValue(),(String)tourObj.get("Description"));
             DAL.getInstance().tourDao().create(tour);
+            return tour;
             //Iterate over employee array
             //employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
         } catch (IOException | ParseException | SQLException | java.text.ParseException e) {
             logger.error(e.toString());
         }
+        return null;
     }
 
 

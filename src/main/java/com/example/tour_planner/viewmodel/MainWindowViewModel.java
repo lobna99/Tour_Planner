@@ -37,6 +37,8 @@ public class MainWindowViewModel {
     }
 
     public void addImportTour(String path) {
-        DAL.getInstance().fileAccess().importTour(path);
+        Tour importedTour = DAL.getInstance().fileAccess().importTour(path);
+        tourOverviewViewModel.getObservableTours().add(importedTour);
     }
+
 }

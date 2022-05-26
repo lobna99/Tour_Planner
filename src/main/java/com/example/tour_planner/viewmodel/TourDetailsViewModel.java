@@ -33,6 +33,7 @@ public class TourDetailsViewModel {
     private ObjectProperty<Image> map = new SimpleObjectProperty<>();
 
 
+
     public interface SelectionChangedListener {
         void changeSelection(TourLog TourLog);
     }
@@ -170,5 +171,13 @@ public class TourDetailsViewModel {
             logger.error(e.toString());
         }
         observableLogs.add(tourLog);
+    }
+    public void removeLog(TourLog selectedItem) {
+        try {
+            DAL.getInstance().tourLogDao().delete(selectedItem);
+        } catch (SQLException e) {
+            logger.fatal(e.toString());
+        }
+        observableLogs.remove(selectedItem);
     }
 }
