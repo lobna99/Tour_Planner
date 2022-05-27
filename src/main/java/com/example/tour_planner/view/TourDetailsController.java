@@ -80,4 +80,8 @@ public class TourDetailsController {
             tourDetailsViewModel.removeLog(LogTable.getSelectionModel().getSelectedItem());
         }
     }
+
+    public void onButtonUpdateTour(ActionEvent actionEvent) {
+        //FormsHandler.tourUpdateForm(tourDetailsViewModel);
+    }
 }

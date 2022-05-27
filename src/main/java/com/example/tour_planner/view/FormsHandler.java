@@ -52,15 +52,15 @@ public class FormsHandler {
             @Override
             public void handle(ActionEvent event) {
                 try {
-//                    while (!From.getText().matches("[a-zA-z]*")
-//                            || !To.getText().matches("[a-zA-z]*")
-//                            || !To.getText().matches("[a-zA-z]*")
-//                            || !Date.toString().matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
-//                        logger.warn("Input is not in right format");
-//                        alert.setAlertType(Alert.AlertType.WARNING);
-//                        alert.setContentText("Input is not in right format");
-//                        alert.show();
-//                    }
+                    if (!From.getText().matches("[a-zA-z]*")
+                            || !To.getText().matches("[a-zA-z]*")
+                            || !To.getText().matches("[a-zA-z]*")
+                            || !Date.toString().matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
+                        logger.warn("Input is not in right format");
+                        alert.setAlertType(Alert.AlertType.WARNING);
+                        alert.setContentText("Input is not in right format");
+                        alert.show();
+                    }
                     tourOverviewViewModel.addNewTour(From.getText(), To.getText(), Name.getText(), Date.getValue(), Descrip.getText());
                 } catch (JSONException | IOException | SQLException | ParseException e) {
                     logger.error(e.toString());
@@ -123,7 +123,7 @@ public class FormsHandler {
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                while(!totaltime.getText().matches("[0-9]*")) {
+                if(!totaltime.getText().matches("[0-9]*")) {
                     logger.warn("Total Time Spent can only be a numeric value");
                     alert.setAlertType(Alert.AlertType.WARNING);
                     alert.setContentText("Total Time Spent can only be a numeric value");

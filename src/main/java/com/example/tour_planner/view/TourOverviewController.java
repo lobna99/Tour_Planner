@@ -46,7 +46,7 @@ public class TourOverviewController {
             if(tourList.getSelectionModel().getSelectedItem()!=null)
                 tourOverviewViewModel.deleteTour(tourList.getSelectionModel().getSelectedItem());
         } catch (SQLException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
     }
 

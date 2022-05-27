@@ -66,7 +66,7 @@ public class TourDetailsViewModel {
         try {
             setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
         } catch (SQLException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
        // name.addListener((arg, oldVal, newVal) -> updateTourModel());
     }
@@ -146,12 +146,12 @@ public class TourDetailsViewModel {
     }
 
 
-    private void updateTourModel() {
+    public void updateTourModel() {
         if (!isInitValue) {
             try {
                 DAL.getInstance().tourDao().update(tour, Arrays.asList(name.get(),from.get(),to.get(),type.get(), distance.get(), plannedTime.get(),info.get()));
             } catch (SQLException e) {
-                logger.error(e.toString());
+                logger.fatal(e.toString());
             }
         }
     }
@@ -168,7 +168,7 @@ public class TourDetailsViewModel {
         try {
             DAL.getInstance().tourLogDao().create(tourLog);
         } catch (SQLException | ParseException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
         observableLogs.add(tourLog);
     }
