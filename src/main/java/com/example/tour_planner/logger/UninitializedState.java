@@ -2,6 +2,7 @@ package com.example.tour_planner.logger;
 
 
 public class UninitializedState extends LoggerStateBase {
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
 
     private static final ILoggerWrapper logger = LoggerFactory.getLogger();
 

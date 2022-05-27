@@ -33,7 +33,7 @@ public class TourOverviewController {
     @FXML
     void initialize() {
         tourList.setItems(tourOverviewViewModel.getObservableTours());
-
+        tourList.getSelectionModel().selectedItemProperty().addListener(tourOverviewViewModel.getChangeListener());
     }
 
     public void onButtonAdd(ActionEvent actionEvent) {
@@ -54,11 +54,19 @@ public class TourOverviewController {
         try {
             if(tourList.getSelectionModel().getSelectedItem()!=null)
                 tourOverviewViewModel.generateTourReport(tourList.getSelectionModel().getSelectedItem());
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             logger.fatal(e.toString());
-        }
     }
 
     public void generateSummarizeReport(ActionEvent actionEvent) {
+        if(tourList.getSelectionModel().getSelectedItem()!=null){
+            tourOverviewViewModel.generateSummarizeReport(tourList.getSelectionModel().getSelectedItem());
+        }
+    }
+
+    public void exportTour(ActionEvent actionEvent) {
+        if(tourList.getSelectionModel().getSelectedItem()!=null){
+            tourOverviewViewModel.exportTour(tourList.getSelectionModel().getSelectedItem());
+        }
     }
 }

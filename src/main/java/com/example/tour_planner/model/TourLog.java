@@ -8,10 +8,11 @@ import javafx.beans.property.StringProperty;
 public class TourLog {
     private final StringProperty time = new SimpleStringProperty() ;
     private final StringProperty comment = new SimpleStringProperty();
-    private final StringProperty name = new SimpleStringProperty();;
-    private final IntegerProperty difficultly = new SimpleIntegerProperty();;
-    private final StringProperty total_time = new SimpleStringProperty();;
-    private final IntegerProperty rating = new SimpleIntegerProperty();;
+    private final StringProperty name = new SimpleStringProperty();
+    private final IntegerProperty difficultly = new SimpleIntegerProperty();
+    private final IntegerProperty id = new SimpleIntegerProperty();
+    private final StringProperty total_time = new SimpleStringProperty();
+    private final IntegerProperty rating = new SimpleIntegerProperty();
 
     public TourLog(String time,String comment,int difficutly,String total_time,int rating,String name){
         this.time.set(time);
@@ -28,6 +29,12 @@ public class TourLog {
 
     public StringProperty getTimeProperty(){
         return time;
+    }
+    public void setTime(String time){
+        this.time.set(time);
+    }
+    public void setId(int id){
+        this.id.set(id);
     }
     public StringProperty getCommentProperty(){
         return comment;
@@ -63,5 +70,13 @@ public class TourLog {
 
     public String getName() {
         return name.get();
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
     }
 }

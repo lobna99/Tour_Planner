@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourDetailsController">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourDetailsController">
     <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS">
-        <TabPane prefHeight="520.0" prefWidth="486.0" style="-fx-background-color: brown;" tabClosingPolicy="UNAVAILABLE">
+        <TabPane tabClosingPolicy="UNAVAILABLE">
             <Tab text="%MediaDetails_Tab_Content">
                 <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="359.0" prefWidth="486.0">
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="448.0">
                         <Label layoutX="190.0" layoutY="25.0" text="%Details_From" />
                         <TextField fx:id="fromDetail" layoutX="297.0" layoutY="21.0" prefHeight="18.0" prefWidth="87.0" />
                         <Label layoutX="17.0" layoutY="25.0" text="%Details_Name" />
@@ -27,6 +27,7 @@
                         <TextField fx:id="infoDetail" layoutX="297.0" layoutY="105.0" prefHeight="95.0" prefWidth="140.0" />
                         <TableView fx:id="LogTable" layoutX="41.0" layoutY="278.0" prefHeight="150.0" prefWidth="376.0">
                             <columns>
+                                <TableColumn fx:id="nr" prefWidth="75.0" text="%Nr" />
                                 <TableColumn fx:id="time" prefWidth="75.0" text="%time" />
                                 <TableColumn fx:id="comment" prefWidth="75.0" text="%comment" />
                                 <TableColumn fx:id="difficulty" prefWidth="75.0" text="%difficulty" />

@@ -22,15 +22,24 @@ public class TourLogDao implements Dao<TourLog> {
     @Override
     public List<TourLog> getAll(String name) throws SQLException {
         ArrayList<TourLog> tourLogs = new ArrayList<TourLog>();
-        PreparedStatement statement = DBconnection.getConnection().prepareStatement("""
+        String query ="";
+        String sql1 = """
                     SELECT *
                     FROM tour_log
                     WHERE tour = ?
-                """);
-        statement.setString(1,name);
+                """;
+        String sql2 ="""
+                    SELECT *
+                    FROM tour_log""";
+
+        if (name!=null) query = name.equals("") ? sql2 : sql1;
+        PreparedStatement statement = DBconnection.getConnection().prepareStatement(query);
+        if (name!=null) if(!name.equals("")) statement.setString(1, name);
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
-            tourLogs.add(new TourLog(rs.getTimestamp("time").toString(),rs.getString("comment"),rs.getInt("difficutly"),rs.getString("total time"),rs.getInt("rating"),rs.getString("tour")));
+            TourLog getT = new TourLog(rs.getTimestamp("time").toString(),rs.getString("comment"),rs.getInt("difficulty"),rs.getString("total time"),rs.getInt("rating"),rs.getString("tour"));
+            getT.setId(rs.getInt("id"));
+            tourLogs.add(getT);
         }
         rs.close();
         statement.close();
@@ -43,6 +52,7 @@ public class TourLogDao implements Dao<TourLog> {
         PreparedStatement statement = DBconnection.getConnection().prepareStatement("""
                  INSERT INTO tour_log (comment, difficulty, "total time", rating, tour)
                  VALUES(?,?,?,?,?)
+                 RETURNING id,time
                 """);
 
         statement.setString(1, tr.getComment());
@@ -50,7 +60,10 @@ public class TourLogDao implements Dao<TourLog> {
         statement.setString(3, tr.getTotal_time());
         statement.setInt(4, tr.getRating());
         statement.setString(5, tr.getName());
-        statement.execute();
+        ResultSet set = statement.executeQuery();
+        set.next();
+        tr.setId(set.getInt(1));
+        tr.setTime(set.getTimestamp(2).toString());
         statement.close();
     }
 
@@ -61,6 +74,13 @@ public class TourLogDao implements Dao<TourLog> {
 
     @Override
     public void delete(TourLog tourLog) throws SQLException {
-
+        PreparedStatement statement = DBconnection.getConnection().prepareStatement("""
+                         DELETE
+                         FROM tour_log
+                         WHERE id=?;
+                         """);
+        statement.setInt(1,tourLog.getId());
+        statement.execute();
+        statement.close();
     }
 }

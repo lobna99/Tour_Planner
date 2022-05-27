@@ -65,12 +65,11 @@ public class TourDetailsViewModel {
 
     public TourDetailsViewModel() {
         try {
-
             setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
         } catch (SQLException e) {
             logger.fatal(e.toString());
         }
-        name.addListener((arg, oldVal, newVal) -> updateTourModel());
+       // name.addListener((arg, oldVal, newVal) -> updateTourModel());
     }
 
 
@@ -138,6 +137,11 @@ public class TourDetailsViewModel {
         type.setValue(TourModel.getTransport_type());
         plannedTime.set(TourModel.getDuration());
         info.setValue(TourModel.getContent());
+        try {
+            setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         map.set( new Image("file:src/main/resources/com/example/tour_planner/maps/" + TourModel.getName()+ "_map.jpg"));
         isInitValue = false;
     }
@@ -167,5 +171,13 @@ public class TourDetailsViewModel {
             logger.fatal(e.toString());
         }
         observableLogs.add(tourLog);
+    }
+    public void removeLog(TourLog selectedItem) {
+        try {
+            DAL.getInstance().tourLogDao().delete(selectedItem);
+        } catch (SQLException e) {
+            logger.fatal(e.toString());
+        }
+        observableLogs.remove(selectedItem);
     }
 }

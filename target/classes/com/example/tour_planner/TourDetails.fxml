@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourDetailsController">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourDetailsController">
     <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS">
-        <TabPane prefHeight="520.0" prefWidth="486.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane tabClosingPolicy="UNAVAILABLE">
             <Tab text="%MediaDetails_Tab_Content">
                 <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="359.0" prefWidth="486.0" style="-fx-background-color: brown;">
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="448.0">
                         <Label layoutX="190.0" layoutY="25.0" text="%Details_From" />
                         <TextField fx:id="fromDetail" layoutX="297.0" layoutY="21.0" prefHeight="18.0" prefWidth="87.0" />
                         <Label layoutX="17.0" layoutY="25.0" text="%Details_Name" />

@@ -14,6 +14,7 @@
             <items>
                 <MenuItem onAction="#onButtonTourReport" text="%tour_report"/>
                 <MenuItem onAction="#generateSummarizeReport" text="%summarize_report"/>
+                <MenuItem onAction="#exportTour" text="%Menu_File_Export"/>
             </items>
         </MenuButton>
     </ToolBar>

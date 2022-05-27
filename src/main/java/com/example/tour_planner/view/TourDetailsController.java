@@ -29,6 +29,8 @@ public class TourDetailsController {
     @FXML
     private TableView<TourLog> LogTable;
     @FXML
+    private TableColumn<TourLog,Number> nr;
+    @FXML
     private TableColumn<TourLog,String> time;
     @FXML
     private TableColumn<TourLog,Number> rating;
@@ -51,15 +53,14 @@ public class TourDetailsController {
 
     void initialize() {
         time.setCellValueFactory(data -> data.getValue().getTimeProperty());
+        nr.setCellValueFactory(data -> data.getValue().idProperty());
         rating.setCellValueFactory(data -> data.getValue().getRatingProperty());
         total_time.setCellValueFactory(data -> data.getValue().getTotalTimeProperty());
+        comment.setCellValueFactory(data -> data.getValue().getCommentProperty());
         difficulty.setCellValueFactory(data -> data.getValue().getDifficutlyProperty());
         LogTable.setItems(tourDetailsViewModel.getObservableTourLogs());
-       // LogTable.itemsProperty().bindBidirectional((Property<ObservableList<TourLog>>) tourDetailsViewModel.getObservableTourLogs());
-
+        //LogTable.itemsProperty().bindBidirectional((Property<ObservableList<TourLog>>) tourDetailsViewModel.getObservableTourLogs());
         //LogTable.getSelectionModel().selectedItemProperty().addListener(tourDetailsViewModel.getChangeListener());
-
-
         nameDetail.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
         fromDetail.textProperty().bindBidirectional(tourDetailsViewModel.fromProperty());
         toDetail.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());
@@ -75,6 +76,9 @@ public class TourDetailsController {
     }
 
     public void onButtonRemoveLog(ActionEvent actionEvent) {
+        if (LogTable.getSelectionModel().getSelectedItem()!=null){
+            tourDetailsViewModel.removeLog(LogTable.getSelectionModel().getSelectedItem());
+        }
     }
 
     public void onButtonUpdateTour(ActionEvent actionEvent) {

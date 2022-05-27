@@ -75,44 +75,6 @@ public class FormsHandler {
         stage.show();
     }
 
-    public static void tourUpdateForm(TourDetailsViewModel tourDetailsViewModel) {
-        Stage stage = new Stage();
-        VBox box = new VBox();
-        box.setPadding(new Insets(10));
-
-        // How to center align content in a layout manager in JavaFX
-        box.setAlignment(Pos.CENTER);
-
-        Label label = new Label("Update Tour");
-
-        TextField Name = new TextField();
-        Name.setPromptText("enter tour name");
-        TextField From = new TextField();
-        From.setPromptText("enter from");
-        TextField To = new TextField();
-        To.setPromptText("enter to");
-        TextField Descrip = new TextField();
-        Descrip.setPromptText("Description");
-        Label labeld = new Label("Choose Date");
-        DatePicker Date = new DatePicker();
-
-        Button btnSubmit = new Button();
-        btnSubmit.setText("submit");
-
-        btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                tourDetailsViewModel.updateTourModel();
-                stage.close(); // return to main window
-            }
-        });
-        box.getChildren().addAll(label, Name, From, To, labeld, Date, Descrip, btnSubmit);
-        Scene scene = new Scene(box, 350, 250);
-        stage.setScene(scene);
-        stage.setTitle("Update Tour");
-        stage.show();
-    }
-
     public static void logForm(TourDetailsViewModel tourDetailsViewModel) {
         Stage stage = new Stage();
         GridPane box = new GridPane();
