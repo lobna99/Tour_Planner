@@ -133,10 +133,8 @@ public class FileAccess {
             //Iterate over employee array
             //employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
 
-        } catch (IOException | ParseException e) {
-            logger.fatal(e.toString());
         } catch (IOException | ParseException | SQLException | java.text.ParseException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
         return null;
     }
