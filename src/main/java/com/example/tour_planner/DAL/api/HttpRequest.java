@@ -48,7 +48,7 @@ public class HttpRequest {
             try {
                 return mapper.readTree(content);
             } catch (IOException e) {
-                logger.error(e.toString());
+                logger.fatal(e.toString());
             }
         }
         return null;

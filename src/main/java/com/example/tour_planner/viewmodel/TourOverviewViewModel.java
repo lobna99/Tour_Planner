@@ -34,7 +34,7 @@ public class TourOverviewViewModel {
         try {
             setTours( DAL.getInstance().tourDao().getAll("") );
         } catch (SQLException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
     }
 

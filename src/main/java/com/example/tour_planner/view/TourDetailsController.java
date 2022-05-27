@@ -2,6 +2,7 @@ package com.example.tour_planner.view;
 
 import com.example.tour_planner.model.TourLog;
 import com.example.tour_planner.viewmodel.TourDetailsViewModel;
+import com.example.tour_planner.viewmodel.TourOverviewViewModel;
 import javafx.beans.property.Property;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,7 +38,6 @@ public class TourDetailsController {
     private TableColumn<TourLog,String> comment;
     @FXML
     private TableColumn<TourLog,Number> difficulty;
-
 
     public TourDetailsController(TourDetailsViewModel tourDetailsViewModel) {
         this.tourDetailsViewModel = tourDetailsViewModel;
@@ -75,5 +75,9 @@ public class TourDetailsController {
     }
 
     public void onButtonRemoveLog(ActionEvent actionEvent) {
+    }
+
+    public void onButtonUpdateTour(ActionEvent actionEvent) {
+        FormsHandler.tourUpdateForm(tourDetailsViewModel);
     }
 }

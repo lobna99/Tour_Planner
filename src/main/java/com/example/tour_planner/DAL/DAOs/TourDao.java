@@ -88,7 +88,7 @@ public class TourDao implements Dao<Tour> {
             try {
                 throw new java.io.IOException("file exists");
             } catch (IOException e) {
-                logger.error(e.toString());
+                logger.fatal(e.toString());
             }
 
 // Rename file (or directory)

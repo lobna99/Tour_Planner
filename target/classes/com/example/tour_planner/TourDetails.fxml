@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourDetailsController">
+<VBox xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourDetailsController">
     <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS">
-        <TabPane tabClosingPolicy="UNAVAILABLE">
+        <TabPane prefHeight="520.0" prefWidth="486.0" tabClosingPolicy="UNAVAILABLE">
             <Tab text="%MediaDetails_Tab_Content">
                 <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="448.0">
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="359.0" prefWidth="486.0" style="-fx-background-color: brown;">
                         <Label layoutX="190.0" layoutY="25.0" text="%Details_From" />
                         <TextField fx:id="fromDetail" layoutX="297.0" layoutY="21.0" prefHeight="18.0" prefWidth="87.0" />
                         <Label layoutX="17.0" layoutY="25.0" text="%Details_Name" />
@@ -25,7 +25,7 @@
                         <Label layoutX="20.0" layoutY="149.0" text="%Details_Time" />
                         <TextField fx:id="timeDetail" layoutX="90.0" layoutY="145.0" prefHeight="26.0" prefWidth="67.0" />
                         <TextField fx:id="infoDetail" layoutX="297.0" layoutY="105.0" prefHeight="95.0" prefWidth="140.0" />
-                        <TableView fx:id="LogTable" layoutX="36.0" layoutY="223.0" prefHeight="150.0" prefWidth="376.0">
+                        <TableView fx:id="LogTable" layoutX="41.0" layoutY="278.0" prefHeight="150.0" prefWidth="376.0">
                             <columns>
                                 <TableColumn fx:id="time" prefWidth="75.0" text="%time" />
                                 <TableColumn fx:id="comment" prefWidth="75.0" text="%comment" />
@@ -34,13 +34,14 @@
                                 <TableColumn fx:id="rating" prefWidth="75.0" text="%rating" />
                             </columns>
                         </TableView>
-                        <Label layoutX="19.0" layoutY="194.0" prefHeight="27.0" prefWidth="60.0" text="%Logs">
+                        <Button layoutX="17.0" layoutY="187.0" onAction="#onButtonUpdateTour" prefHeight="26.0" prefWidth="100.0" text="%UpdateTour" textAlignment="CENTER" />
+                        <Label layoutX="19.0" layoutY="231.0" prefHeight="27.0" prefWidth="60.0" text="%Logs">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <Button layoutX="85.0" layoutY="195.0" onAction="#onButtonAddLog" prefHeight="26.0" prefWidth="28.0" text="+" textAlignment="CENTER" />
-                        <Button layoutX="124.0" layoutY="195.0" onAction="#onButtonRemoveLog" prefHeight="26.0" prefWidth="28.0" text="-" textAlignment="CENTER" />
+                        <Button layoutX="101.0" layoutY="231.0" onAction="#onButtonAddLog" prefHeight="26.0" prefWidth="28.0" text="+" textAlignment="CENTER" />
+                        <Button layoutX="146.0" layoutY="231.0" onAction="#onButtonRemoveLog" prefHeight="26.0" prefWidth="28.0" text="-" textAlignment="CENTER" />
                     </AnchorPane>
                 </content>
             </Tab>

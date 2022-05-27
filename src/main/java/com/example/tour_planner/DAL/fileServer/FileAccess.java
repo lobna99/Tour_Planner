@@ -132,7 +132,7 @@ public class FileAccess {
             //employeeList.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
 
         } catch (IOException | ParseException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
     }
 
@@ -154,7 +154,7 @@ public class FileAccess {
             file.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
         logger.debug("JSON file created: "+jsonObject);
     }

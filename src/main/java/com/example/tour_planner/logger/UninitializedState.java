@@ -3,6 +3,8 @@ package com.example.tour_planner.logger;
 
 public class UninitializedState extends LoggerStateBase {
 
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
+
     @Override
     public void debug(String message) {
         this.printUninitializedWarning();

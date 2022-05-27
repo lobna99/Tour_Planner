@@ -22,7 +22,7 @@ import java.text.ParseException;
 public class FormsHandler {
 
     private static final ILoggerWrapper logger = LoggerFactory.getLogger();
-    private static Alert alert;
+    private static Alert alert = new Alert(Alert.AlertType.NONE);
 
     public static void tourForm(TourOverviewViewModel tourOverviewViewModel) {
         Stage stage = new Stage();
@@ -52,7 +52,7 @@ public class FormsHandler {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    while (!From.getText().matches("[a-zA-z]*")
+                    if (!From.getText().matches("[a-zA-z]*")
                             || !To.getText().matches("[a-zA-z]*")
                             || !To.getText().matches("[a-zA-z]*")
                             || !Date.toString().matches("[0-9]{2}.[0-9]{2}.[0-9]{4}")) {
@@ -63,7 +63,7 @@ public class FormsHandler {
                     }
                     tourOverviewViewModel.addNewTour(From.getText(), To.getText(), Name.getText(), Date.getValue(), Descrip.getText());
                 } catch (JSONException | IOException | SQLException | ParseException e) {
-                    logger.error(e.toString());
+                    logger.fatal(e.toString());
                 }
                 stage.close(); // return to main window
             }
@@ -72,6 +72,44 @@ public class FormsHandler {
         Scene scene = new Scene(box, 350, 250);
         stage.setScene(scene);
         stage.setTitle("Add Tour");
+        stage.show();
+    }
+
+    public static void tourUpdateForm(TourDetailsViewModel tourDetailsViewModel) {
+        Stage stage = new Stage();
+        VBox box = new VBox();
+        box.setPadding(new Insets(10));
+
+        // How to center align content in a layout manager in JavaFX
+        box.setAlignment(Pos.CENTER);
+
+        Label label = new Label("Update Tour");
+
+        TextField Name = new TextField();
+        Name.setPromptText("enter tour name");
+        TextField From = new TextField();
+        From.setPromptText("enter from");
+        TextField To = new TextField();
+        To.setPromptText("enter to");
+        TextField Descrip = new TextField();
+        Descrip.setPromptText("Description");
+        Label labeld = new Label("Choose Date");
+        DatePicker Date = new DatePicker();
+
+        Button btnSubmit = new Button();
+        btnSubmit.setText("submit");
+
+        btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                tourDetailsViewModel.updateTourModel();
+                stage.close(); // return to main window
+            }
+        });
+        box.getChildren().addAll(label, Name, From, To, labeld, Date, Descrip, btnSubmit);
+        Scene scene = new Scene(box, 350, 250);
+        stage.setScene(scene);
+        stage.setTitle("Update Tour");
         stage.show();
     }
 
@@ -123,7 +161,7 @@ public class FormsHandler {
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                while(!totaltime.getText().matches("[0-9]*")) {
+                if(!totaltime.getText().matches("[0-9]*")) {
                     logger.warn("Total Time Spent can only be a numeric value");
                     alert.setAlertType(Alert.AlertType.WARNING);
                     alert.setContentText("Total Time Spent can only be a numeric value");

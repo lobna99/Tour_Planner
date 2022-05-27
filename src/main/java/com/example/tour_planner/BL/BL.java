@@ -22,7 +22,7 @@ public class BL {
                 .filter(t->t.getName().toLowerCase().contains(searchText.toLowerCase()))
                 .collect(Collectors.toList());
         } catch (SQLException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
         return  null;
     }

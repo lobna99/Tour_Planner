@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +32,7 @@ public class TourDetailsViewModel {
     private final DoubleProperty distance = new SimpleDoubleProperty();
     private final StringProperty plannedTime = new SimpleStringProperty();
     private ObjectProperty<Image> map = new SimpleObjectProperty<>();
+
 
 
     public interface SelectionChangedListener {
@@ -66,7 +68,7 @@ public class TourDetailsViewModel {
 
             setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
         } catch (SQLException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
         name.addListener((arg, oldVal, newVal) -> updateTourModel());
     }
@@ -141,16 +143,15 @@ public class TourDetailsViewModel {
     }
 
 
-    private void updateTourModel() {
+    public void updateTourModel() {
         if (!isInitValue) {
             try {
                 DAL.getInstance().tourDao().update(tour, Arrays.asList(name.get(),from.get(),to.get(),type.get(), distance.get(), plannedTime.get(),info.get()));
             } catch (SQLException e) {
-                logger.error(e.toString());
+                logger.fatal(e.toString());
             }
         }
     }
-
 
 
     public void setTourLogs(List<TourLog> tourLogs) {
@@ -163,7 +164,7 @@ public class TourDetailsViewModel {
         try {
             DAL.getInstance().tourLogDao().create(tourLog);
         } catch (SQLException | ParseException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
         observableLogs.add(tourLog);
     }
