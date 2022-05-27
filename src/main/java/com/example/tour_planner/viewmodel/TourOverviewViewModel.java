@@ -1,5 +1,6 @@
 package com.example.tour_planner.viewmodel;
 
+import com.example.tour_planner.BL.BL;
 import com.example.tour_planner.DAL.DAL;
 import com.example.tour_planner.DAL.api.HttpRequest;
 import com.example.tour_planner.logger.ILoggerWrapper;
@@ -29,6 +30,16 @@ public class TourOverviewViewModel {
         }
     }
 
+    public void generateSummarizeReport(Tour selectedItem) {
+        try {
+            BL.getInstance().averageStats(selectedItem);
+        } catch (SQLException e) {
+            logger.fatal(e.toString());
+        } catch (IOException e) {
+            logger.error(e.toString());
+        }
+    }
+
     public interface SelectionChangedListener {
         void changeSelection(Tour mediaItem);
     }
@@ -42,11 +53,11 @@ public class TourOverviewViewModel {
         try {
             setTours( DAL.getInstance().tourDao().getAll("") );
         } catch (SQLException e) {
-            logger.error(e.toString());
+            logger.fatal(e.toString());
         }
     }
 
-    public void generateTourReport(Tour selectedItem) throws IOException {
+    public void generateTourReport(Tour selectedItem) throws IOException, SQLException {
         DAL.getInstance().reportWriter().createTourReport(selectedItem);
     }
 

@@ -56,10 +56,15 @@ public class TourOverviewController {
                 tourOverviewViewModel.generateTourReport(tourList.getSelectionModel().getSelectedItem());
         } catch (IOException e) {
             logger.error(e.toString());
+        } catch (SQLException e) {
+            logger.fatal(e.toString());
         }
     }
 
     public void generateSummarizeReport(ActionEvent actionEvent) {
+        if(tourList.getSelectionModel().getSelectedItem()!=null){
+            tourOverviewViewModel.generateSummarizeReport(tourList.getSelectionModel().getSelectedItem());
+        }
     }
 
     public void exportTour(ActionEvent actionEvent) {
