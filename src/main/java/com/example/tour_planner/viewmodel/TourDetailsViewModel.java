@@ -1,5 +1,6 @@
 package com.example.tour_planner.viewmodel;
 
+import com.example.tour_planner.BL.BL;
 import com.example.tour_planner.DAL.DAL;
 import com.example.tour_planner.logger.ILoggerWrapper;
 import com.example.tour_planner.logger.LoggerFactory;
@@ -16,7 +17,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class TourDetailsViewModel {
     private static final ILoggerWrapper logger = LoggerFactory.getLogger();
@@ -24,15 +24,36 @@ public class TourDetailsViewModel {
     private volatile boolean isInitValue = false;
 
     private final StringProperty name = new SimpleStringProperty();
+    private final StringProperty popularity = new SimpleStringProperty();
+    private final StringProperty child = new SimpleStringProperty();
     private final StringProperty from = new SimpleStringProperty();
     private final StringProperty to = new SimpleStringProperty();
     private final StringProperty info = new SimpleStringProperty();
-    private final IntegerProperty type = new SimpleIntegerProperty();
+    private final StringProperty type = new SimpleStringProperty();
     private final DoubleProperty distance = new SimpleDoubleProperty();
     private final StringProperty plannedTime = new SimpleStringProperty();
     private ObjectProperty<Image> map = new SimpleObjectProperty<>();
 
+    public void updateLog(TourLog log, String comment, String totaltime, String diff, String rating) {
+        try {
+            DAL.getInstance().tourLogDao().update(log,Arrays.asList(comment,totaltime,diff,rating));
+            setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public StringProperty popularityProperty() {
+        return popularity;
+    }
+
+    public StringProperty childProperty() {
+        return child;
+    }
+
+    public String getChild(){
+        return child.get();
+    }
 
     public interface SelectionChangedListener {
         void changeSelection(TourLog TourLog);
@@ -72,6 +93,9 @@ public class TourDetailsViewModel {
     }
 
 
+    public String getPopularity(){
+        return popularity.get();
+    }
     public String getName() {
         return name.get();
     }
@@ -99,7 +123,7 @@ public class TourDetailsViewModel {
         return to;
     }
 
-    public IntegerProperty typeProperty() {
+    public StringProperty typeProperty() {
         return type;
     }
 
@@ -123,9 +147,10 @@ public class TourDetailsViewModel {
         isInitValue = true;
         if (TourModel == null) {
             // select the first in the list
-            name.set("");
-            plannedTime.set("00:00:00");
-            distance.set(0.0);
+            name.setValue("");
+            plannedTime.setValue("00:00:00");
+            distance.setValue(0.0);
+            child.setValue("0%");
             return;
         }
         this.tour = TourModel;
@@ -138,6 +163,8 @@ public class TourDetailsViewModel {
         info.setValue(TourModel.getContent());
         try {
             setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
+            popularity.setValue(String.valueOf(BL.getInstance().calculatePopularity(TourModel)));
+            child.setValue(String.valueOf(BL.getInstance().calculateChildF(TourModel))+"%");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -146,10 +173,10 @@ public class TourDetailsViewModel {
     }
 
 
-    public void updateTourModel() {
+    public void updateTourModel(String name, String descripText) {
         if (!isInitValue) {
             try {
-                DAL.getInstance().tourDao().update(tour, Arrays.asList(name.get(),from.get(),to.get(),type.get(), distance.get(), plannedTime.get(),info.get()));
+                DAL.getInstance().tourDao().update(tour, Arrays.asList(name,descripText));
             } catch (SQLException e) {
                 logger.fatal(e.toString());
             }

@@ -6,45 +6,54 @@
 <?import javafx.scene.text.*?>
 
 <VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourDetailsController">
-    <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS">
+    <SplitPane orientation="VERTICAL" prefHeight="466.0" prefWidth="729.0" VBox.vgrow="ALWAYS">
         <TabPane tabClosingPolicy="UNAVAILABLE">
             <Tab text="%MediaDetails_Tab_Content">
-                <content>
-                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="448.0">
-                        <Label layoutX="190.0" layoutY="25.0" text="%Details_From" />
-                        <TextField fx:id="fromDetail" layoutX="297.0" layoutY="21.0" prefHeight="18.0" prefWidth="87.0" />
-                        <Label layoutX="17.0" layoutY="25.0" text="%Details_Name" />
-                        <TextField fx:id="nameDetail" layoutX="88.0" layoutY="21.0" prefHeight="18.0" prefWidth="72.0" />
-                        <Label layoutX="190.0" layoutY="105.0" text="%Details_Description" />
-                        <Label layoutX="17.0" layoutY="64.0" text="%Details_To" />
-                        <TextField fx:id="toDetail" layoutX="90.0" layoutY="60.0" prefHeight="18.0" prefWidth="68.0" />
-                        <Label layoutX="190.0" layoutY="64.0" text="%Details_Transport_Type" />
-                        <TextField fx:id="typeDetail" layoutX="297.0" layoutY="60.0" prefHeight="18.0" prefWidth="73.0" />
-                        <Label layoutX="19.0" layoutY="105.0" text="%Details_Distance" />
-                        <TextField fx:id="distanceDetail" layoutX="90.0" layoutY="100.0" prefHeight="26.0" prefWidth="67.0" />
-                        <Label layoutX="20.0" layoutY="149.0" text="%Details_Time" />
-                        <TextField fx:id="timeDetail" layoutX="90.0" layoutY="145.0" prefHeight="26.0" prefWidth="67.0" />
-                        <TextField fx:id="infoDetail" layoutX="297.0" layoutY="105.0" prefHeight="95.0" prefWidth="140.0" />
-                        <TableView fx:id="LogTable" layoutX="41.0" layoutY="278.0" prefHeight="150.0" prefWidth="376.0">
-                            <columns>
-                                <TableColumn fx:id="nr" prefWidth="75.0" text="%Nr" />
-                                <TableColumn fx:id="time" prefWidth="75.0" text="%time" />
-                                <TableColumn fx:id="comment" prefWidth="75.0" text="%comment" />
-                                <TableColumn fx:id="difficulty" prefWidth="75.0" text="%difficulty" />
-                                <TableColumn fx:id="total_time" prefWidth="75.0" text="%total_time" />
-                                <TableColumn fx:id="rating" prefWidth="75.0" text="%rating" />
-                            </columns>
-                        </TableView>
-                        <Button layoutX="17.0" layoutY="187.0" onAction="#onButtonUpdateTour" prefHeight="26.0" prefWidth="100.0" text="%UpdateTour" textAlignment="CENTER" />
-                        <Label layoutX="19.0" layoutY="231.0" prefHeight="27.0" prefWidth="60.0" text="%Logs">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Button layoutX="101.0" layoutY="231.0" onAction="#onButtonAddLog" prefHeight="26.0" prefWidth="28.0" text="+" textAlignment="CENTER" />
-                        <Button layoutX="146.0" layoutY="231.0" onAction="#onButtonRemoveLog" prefHeight="26.0" prefWidth="28.0" text="-" textAlignment="CENTER" />
-                    </AnchorPane>
-                </content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="448.0">
+                    <Label layoutX="190.0" layoutY="25.0" text="%Details_From"/>
+                    <TextField fx:id="fromDetail" layoutX="297.0" layoutY="21.0" prefHeight="18.0" prefWidth="87.0"/>
+                    <Label layoutX="17.0" layoutY="25.0" text="%Details_Name"/>
+                    <TextField fx:id="nameDetail" layoutX="88.0" layoutY="21.0" prefHeight="18.0" prefWidth="72.0"/>
+                    <Label layoutX="190.0" layoutY="105.0" text="%Details_Description"/>
+                    <Label layoutX="17.0" layoutY="64.0" text="%Details_To"/>
+                    <TextField fx:id="toDetail" layoutX="90.0" layoutY="60.0" prefHeight="18.0" prefWidth="68.0"/>
+                    <Label layoutX="190.0" layoutY="64.0" text="%Details_Transport_Type"/>
+                    <TextField fx:id="typeDetail" layoutX="297.0" layoutY="60.0" prefHeight="18.0" prefWidth="73.0"/>
+                    <Label layoutX="19.0" layoutY="105.0" text="%Details_Distance"/>
+                    <TextField fx:id="distanceDetail" layoutX="90.0" layoutY="100.0" prefHeight="26.0"
+                               prefWidth="67.0"/>
+                    <Label layoutX="20.0" layoutY="149.0" text="%Details_Time"/>
+                    <TextField fx:id="timeDetail" layoutX="90.0" layoutY="145.0" prefHeight="26.0" prefWidth="67.0"/>
+                    <TextField fx:id="infoDetail" layoutX="297.0" layoutY="105.0" prefHeight="95.0" prefWidth="140.0"/>
+                    <TableView fx:id="LogTable" layoutX="20.0" layoutY="271.0" prefHeight="150.0" prefWidth="451.0">
+                        <columns>
+                            <TableColumn fx:id="nr" prefWidth="75.0" text="%Nr"/>
+                            <TableColumn fx:id="time" prefWidth="75.0" text="%time"/>
+                            <TableColumn fx:id="comment" prefWidth="75.0" text="%comment"/>
+                            <TableColumn fx:id="difficulty" prefWidth="75.0" text="%difficulty"/>
+                            <TableColumn fx:id="total_time" prefWidth="74.199951171875" text="%total_time"/>
+                            <TableColumn fx:id="rating" prefWidth="76.20001220703125" text="%rating"/>
+                        </columns>
+                    </TableView>
+                    <Button layoutX="17.0" layoutY="187.0" onAction="#onButtonUpdateTour" prefHeight="26.0"
+                            prefWidth="100.0" text="%UpdateTour" textAlignment="CENTER"/>
+                    <Label layoutX="19.0" layoutY="231.0" prefHeight="27.0" prefWidth="60.0" text="%Logs">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Label>
+                    <Button layoutX="101.0" layoutY="231.0" onAction="#onButtonAddLog" prefHeight="26.0"
+                            prefWidth="28.0" text="+" textAlignment="CENTER"/>
+                    <Button layoutX="146.0" layoutY="231.0" onAction="#onButtonRemoveLog" prefHeight="26.0"
+                            prefWidth="28.0" text="-" textAlignment="CENTER"/>
+                    <Button layoutX="347.0" layoutY="231.0" mnemonicParsing="false" onAction="#onButtonUpdateLog"
+                            prefHeight="26.0" prefWidth="124.0" text="%Update_Log"/>
+                    <Label layoutX="473.0" layoutY="25.0" text="%Popularity"/>
+                    <Label fx:id="popularity" layoutX="553.0" layoutY="24.0" prefHeight="18.0" prefWidth="66.0"/>
+                    <Label layoutX="473.0" layoutY="73.0" text="%child-friendliness"/>
+                    <Label fx:id="child_friendliness" layoutX="586.0" layoutY="72.0" prefHeight="18.0"
+                           prefWidth="57.0"/>
+                </AnchorPane>
             </Tab>
             <Tab text="%MediaDetails_Tab_Image">
                 <ScrollPane>

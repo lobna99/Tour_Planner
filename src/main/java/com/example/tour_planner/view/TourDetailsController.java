@@ -6,6 +6,7 @@ import javafx.beans.property.Property;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,6 +26,8 @@ public class TourDetailsController {
     public ImageView ivMap;
 
     private final TourDetailsViewModel tourDetailsViewModel;
+    public Label popularity;
+    public Label child_friendliness;
     @FXML
     private TableView<TourLog> LogTable;
     @FXML
@@ -52,6 +55,8 @@ public class TourDetailsController {
     @FXML//        comment.pr
 
     void initialize() {
+        popularity.textProperty().bindBidirectional(tourDetailsViewModel.popularityProperty());
+        child_friendliness.textProperty().bindBidirectional(tourDetailsViewModel.childProperty());
         time.setCellValueFactory(data -> data.getValue().getTimeProperty());
         nr.setCellValueFactory(data -> data.getValue().idProperty());
         rating.setCellValueFactory(data -> data.getValue().getRatingProperty());
@@ -59,15 +64,13 @@ public class TourDetailsController {
         comment.setCellValueFactory(data -> data.getValue().getCommentProperty());
         difficulty.setCellValueFactory(data -> data.getValue().getDifficutlyProperty());
         LogTable.setItems(tourDetailsViewModel.getObservableTourLogs());
-        //LogTable.itemsProperty().bindBidirectional((Property<ObservableList<TourLog>>) tourDetailsViewModel.getObservableTourLogs());
-        //LogTable.getSelectionModel().selectedItemProperty().addListener(tourDetailsViewModel.getChangeListener());
         nameDetail.textProperty().bindBidirectional(tourDetailsViewModel.nameProperty());
         fromDetail.textProperty().bindBidirectional(tourDetailsViewModel.fromProperty());
         toDetail.textProperty().bindBidirectional(tourDetailsViewModel.toProperty());
         infoDetail.textProperty().bindBidirectional(tourDetailsViewModel.infoProperty());
         timeDetail.textProperty().bindBidirectional(tourDetailsViewModel.plannedTimeProperty());
         distanceDetail.textProperty().bindBidirectional(tourDetailsViewModel.distanceProperty(), NumberFormat.getInstance());
-        typeDetail.textProperty().bindBidirectional(tourDetailsViewModel.typeProperty(),NumberFormat.getInstance());
+        typeDetail.textProperty().bindBidirectional(tourDetailsViewModel.typeProperty());
         ivMap.imageProperty().bindBidirectional(tourDetailsViewModel.mapProperty());
     }
 
@@ -76,12 +79,16 @@ public class TourDetailsController {
     }
 
     public void onButtonRemoveLog(ActionEvent actionEvent) {
-        if (LogTable.getSelectionModel().getSelectedItem()!=null){
+        if (LogTable.getSelectionModel().getSelectedItem()!=null)
             tourDetailsViewModel.removeLog(LogTable.getSelectionModel().getSelectedItem());
-        }
     }
 
     public void onButtonUpdateTour(ActionEvent actionEvent) {
-        //FormsHandler.tourUpdateForm(tourDetailsViewModel);
+        FormsHandler.tourUpdateForm(tourDetailsViewModel);
+    }
+
+    public void onButtonUpdateLog(ActionEvent actionEvent) {
+        if (LogTable.getSelectionModel().getSelectedItem()!=null)
+            FormsHandler.tourLogUpdateForm(tourDetailsViewModel, LogTable.getSelectionModel().getSelectedItem());
     }
 }

@@ -3,20 +3,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.tour_planner.view.TourOverviewController">
+<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourOverviewController">
     <ToolBar>
-        <Label text="%TourOverview_Items"/>
-        <Pane HBox.hgrow="ALWAYS"/>
-        <Button onAction="#onButtonAdd" text="+"/>
-        <Button onAction="#onButtonRemove" text="-"/>
+        <Label text="%TourOverview_Items" />
+        <Pane HBox.hgrow="ALWAYS" />
+        <Button onAction="#onButtonAdd" text="+" />
+        <Button onAction="#onButtonRemove" text="-" />
         <MenuButton text="..." textAlignment="JUSTIFY">
             <items>
-                <MenuItem onAction="#onButtonTourReport" text="%tour_report"/>
-                <MenuItem onAction="#generateSummarizeReport" text="%summarize_report"/>
-                <MenuItem onAction="#exportTour" text="%Menu_File_Export"/>
+                <MenuItem onAction="#onButtonTourReport" text="%tour_report" />
+                <MenuItem onAction="#generateSummarizeReport" text="%summarize_report" />
+                <MenuItem onAction="#exportTour" text="%Menu_File_Export" />
             </items>
         </MenuButton>
     </ToolBar>
-    <ListView fx:id="tourList" VBox.vgrow="ALWAYS"/>
+    <ListView fx:id="tourList" prefHeight="400.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
 </VBox>

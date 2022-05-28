@@ -34,7 +34,7 @@ public class TourDao implements Dao<Tour> {
                 """);
         ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                tours.add(new Tour(rs.getInt("Transport_type"), rs.getString("Name"), rs.getString("Date"), rs.getString("From"), rs.getString("To"), rs.getString("Duration"), rs.getDouble("Distance"), rs.getString("route_info")));
+                tours.add(new Tour(rs.getString("Transport_type"), rs.getString("Name"), rs.getString("From"), rs.getString("To"),rs.getString("Duration"), rs.getDouble("Distance"), rs.getString("route_info")));
             }
         rs.close();
         statement.close();
@@ -46,18 +46,17 @@ public class TourDao implements Dao<Tour> {
 
         PreparedStatement statement = null;
         statement = DBconnection.getConnection().prepareStatement("""
-                 INSERT INTO tour ("Date", "Duration", "Distance", "Name", "From", "To", "Transport_type", route_info)
-                 VALUES(?,?,?,?,?,?,?,?)
+                 INSERT INTO tour ("Duration", "Distance", "Name", "From", "To", "Transport_type", route_info)
+                 VALUES(?,?,?,?,?,?,?)
                 """);
 
-        statement.setString(1, tour.getDate());
-        statement.setString(2, tour.getDuration());
-        statement.setDouble(3, tour.getDistance());
-        statement.setString(4, tour.getName());
-        statement.setString(5, tour.getFrom());
-        statement.setString(6, tour.getTo());
-        statement.setInt(7, tour.getTransport_type());
-        statement.setString(8, tour.getContent());
+        statement.setString(1, tour.getDuration());
+        statement.setDouble(2, tour.getDistance());
+        statement.setString(3, tour.getName());
+        statement.setString(4, tour.getFrom());
+        statement.setString(5, tour.getTo());
+        statement.setString(6, tour.getTransport_type());
+        statement.setString(7, tour.getContent());
         statement.execute();
         statement.close();
     }
@@ -66,17 +65,12 @@ public class TourDao implements Dao<Tour> {
     public void update(Tour tour, List<?> params) throws SQLException {
         PreparedStatement statement = DBconnection.getConnection().prepareStatement("""
                          UPDATE tour 
-                         SET "Name"=?,"Duration"=?,"Distance"=?,"From"=?,"To"=?,"Transport_type"=?,route_info=?
+                         SET "Name"=?,route_info=?
                          WHERE "Name"=?
                          """);
         statement.setString(1, String.valueOf(params.get(0)));
-        statement.setString(2, String.valueOf(params.get(5)));
-        statement.setDouble(3, Double.parseDouble(params.get(4).toString()));
-        statement.setString(4, String.valueOf(params.get(1)));
-        statement.setString(5, String.valueOf(params.get(2)));
-        statement.setInt(6, Integer.parseInt(params.get(3).toString()));
-        statement.setString(7, String.valueOf(params.get(6)));
-        statement.setString(8, tour.getName());
+        statement.setString(2, String.valueOf(params.get(1)));
+        statement.setString(3, tour.getName());
         statement.executeUpdate();
         statement.close();
         File file = new File("src/main/resources/com/example/tour_planner/maps/"+tour.getName()+"_map.jpg");
@@ -94,7 +88,7 @@ public class TourDao implements Dao<Tour> {
 // Rename file (or directory)
         boolean success = file.renameTo(file2);
         if (!success) {
-            // File was not successfully renamed
+            logger.error("File was not renamed");
         }
     }
 
@@ -108,6 +102,9 @@ public class TourDao implements Dao<Tour> {
         statement.setString(1, tour.getName());
         statement.execute();
         statement.close();
+        File file = new File("src/main/resources/com/example/tour_planner/maps/"+tour.getName()+"_map.jpg");
+        if (file.delete()) logger.debug("Map deleted");
+        else logger.error("failed to delete map");
     }
 
 }

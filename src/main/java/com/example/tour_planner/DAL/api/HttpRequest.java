@@ -46,7 +46,10 @@ public class HttpRequest {
         ObjectMapper mapper = new ObjectMapper();
         if (!Objects.equals(content, "")) {
             try {
-                return mapper.readTree(content);
+                JsonNode node = mapper.readTree(content);
+                if(!(node.get("route").get("distance").getDoubleValue() ==0))
+                    return mapper.readTree(content);
+                else return null;
             } catch (IOException e) {
                 logger.error(e.toString());
             }

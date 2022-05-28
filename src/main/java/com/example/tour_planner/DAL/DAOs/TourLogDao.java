@@ -68,7 +68,19 @@ public class TourLogDao implements Dao<TourLog> {
     }
 
     @Override
-    public void update(TourLog tourLog, List<?> params) {
+    public void update(TourLog tourLog, List<?> params) throws SQLException {
+        PreparedStatement statement = DBconnection.getConnection().prepareStatement("""
+                UPDATE tour_log
+                SET comment = ?,"total time" = ?,rating = ?,difficulty = ?
+                WHERE id = ?
+                """);
+        statement.setString(1, String.valueOf(params.get(0)));
+        statement.setString(2, String.valueOf(params.get(1)));
+        statement.setInt(3, Integer.parseInt(params.get(2).toString()));
+        statement.setInt(4, Integer.parseInt(params.get(3).toString()));
+        statement.setInt(5, tourLog.getId());
+        statement.executeUpdate();
+        statement.close();
 
     }
 

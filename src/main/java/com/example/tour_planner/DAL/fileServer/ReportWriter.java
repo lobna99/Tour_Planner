@@ -49,8 +49,8 @@ public class ReportWriter implements IReportWriter {
             .add(new ListItem("To: "+tour.getTo()))
             .add(new ListItem("Transport type: "+tour.getTransport_type()))
             .add(new ListItem("Distance: "+tour.getDistance()))
-            .add(new ListItem("Estimated time: "+tour.getDuration()))
-            .add(new ListItem("Date: "+tour.getDate()));
+            .add(new ListItem("Estimated time: "+tour.getDuration()));
+
         document.add(listHeader);
         document.add(list);
 

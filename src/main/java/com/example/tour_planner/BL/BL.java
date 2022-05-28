@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.round;
+
 public class BL {
     private static final ILoggerWrapper logger = LoggerFactory.getLogger();
 
@@ -59,7 +61,43 @@ public class BL {
         DAL.getInstance().reportWriter().createSummaryReport(t.getName(),averages);
 
     }
+    public int calculatePopularity(Tour t) throws SQLException {
+        List<TourLog> tourLogs = DAL.getInstance().tourLogDao().getAll(t.getName());
+        return tourLogs.size();
+    }
 
+    public double calculateChildF(Tour t) throws SQLException {
+        List<TourLog> tourLogs = DAL.getInstance().tourLogDao().getAll(t.getName());
+        if (tourLogs != null) {
+            double sumDifficulty = 0;
+            double sumTotaltime = 0;
+
+            for (TourLog x : tourLogs) {
+                sumDifficulty += x.getDifficultly();
+                sumTotaltime += Integer.parseInt(x.getTotal_time());
+            }
+            double avgD = sumDifficulty / tourLogs.size();
+            double avgT = sumTotaltime / tourLogs.size();
+
+            double child = 1 - ((avgD + avgT + t.getDistance()) / 2100);
+            return round(child * 100, 2);
+        }
+        return 0;
+    }
+
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+    public boolean nameExists(String name) throws SQLException {
+        List<Tour> tours = DAL.getInstance().tourDao().getAll("");
+        return tours.stream().anyMatch(s ->s.getName().equals(name.toLowerCase()));
+    }
     //
     // Singleton-Pattern for BL with early-binding
     //

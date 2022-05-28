@@ -15,12 +15,6 @@
             <MenuItem text="%Menu_File_Import" onAction="#importTour"/>
             <MenuItem text="%Menu_File_Quit" onAction="#onMenuFileQuitClicked" />
         </Menu>
-        <Menu text="%Menu_Edit">
-            <MenuItem text="%Menu_Edit_Duplicate"/>
-        </Menu>
-        <Menu text="%Menu_Options">
-            <MenuItem mnemonicParsing="false" text="%Menu_Options_Settings"/>
-        </Menu>
         <Menu text="%Menu_Help">
             <MenuItem text="%Menu_Help_About" onAction="#onMenuHelpAboutClicked" />
         </Menu>
