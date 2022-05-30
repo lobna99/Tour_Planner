@@ -1,14 +1,21 @@
 
 package com.example.tour_planner.DAL.db;
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
-public class DBconnection  {//Singelton Pattern only one object of this class
+public class DBconnection  {
+    //Singelton Pattern only one object of this class
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
     private static DBconnection OBJ =null;
-    private static final String DBurl ="jdbc:postgresql://localhost:5432/tourplanner";
-    private static final String DBuser="swe1user";
-    private static final String DBpass="swe1pw";
+    private static  String DBurl;
+    private static  String DBuser;
+    private static  String DBpass;
 
     private DBconnection(){
     }
@@ -19,6 +26,17 @@ public class DBconnection  {//Singelton Pattern only one object of this class
         return OBJ;
     }
     public static Connection getConnection() throws SQLException {
-            return DriverManager.getConnection(DBurl,DBuser,DBpass);
+        Properties appProps = new Properties();
+        try {
+            appProps.load(Thread.currentThread()
+                    .getContextClassLoader()
+                    .getResourceAsStream("database.properties"));
+            DBurl = appProps.getProperty("database_url");
+            DBuser = appProps.getProperty("database_user");
+            DBpass = appProps.getProperty("database_password");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return DriverManager.getConnection(DBurl,DBuser,DBpass);
     }
 }

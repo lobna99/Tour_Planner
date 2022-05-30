@@ -37,12 +37,14 @@ public class FormsHandler {
         Label label = new Label("Create a Tour");
 
         TextField Name = new TextField();
+        Name.setId("name");
         Name.setPromptText("enter tour name");
         TextField From = new TextField();
         From.setPromptText("enter from");
         TextField To = new TextField();
         To.setPromptText("enter to");
         ChoiceBox<String> transport = new ChoiceBox<>();
+        transport.setId("choice");
         transport.getItems().add("CAR");
         transport.getItems().add("BICYCLE");
         transport.getItems().add("PEDESTRIAN");
@@ -57,7 +59,7 @@ public class FormsHandler {
                 try {
                     if (!From.getText().matches("[a-zA-ZäüöÄÜÖ]*")
                             || !Name.getText().matches("[a-zA-ZäüöÄÜÖ0-9]*")
-                            || BL.getInstance().nameExists(Name.getText())
+                            || BL.getInstance().getSearchLogic().nameExists(Name.getText())
                             || !To.getText().matches("[a-zA-z-ZäüöÄÜÖ]*")
                             ) {
                         logger.warn("Input is not in right format");
@@ -99,6 +101,7 @@ public class FormsHandler {
         Label diff = new Label("Difficulty");
         ToggleGroup group = new ToggleGroup();
         RadioButton a = new RadioButton("1");
+        a.setId("diff1");
         a.setToggleGroup(group);
         a.setSelected(true);
         RadioButton b = new RadioButton("2");
@@ -182,6 +185,7 @@ public class FormsHandler {
         Descrip.setPromptText("update description");
 
         Button btnUpdate = new Button();
+        btnUpdate.setId("update");
         btnUpdate.setText("update");
 
         btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
@@ -221,8 +225,10 @@ public class FormsHandler {
         Label label = new Label("Update log");
 
         TextField comment = new TextField();
+        comment.setId("comment");
         comment.setPromptText("Comment");
         TextField totaltime = new TextField();
+        totaltime.setId("total_time");
         totaltime.setPromptText("Total time spent");
         Label diff = new Label("Difficulty");
         ToggleGroup group = new ToggleGroup();
@@ -230,6 +236,7 @@ public class FormsHandler {
         a.setToggleGroup(group);
         a.setSelected(true);
         RadioButton b = new RadioButton("2");
+        b.setId("diff2");
         b.setToggleGroup(group);
         RadioButton c = new RadioButton("3");
         c.setToggleGroup(group);

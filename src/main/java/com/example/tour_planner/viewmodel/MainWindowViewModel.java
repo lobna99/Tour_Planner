@@ -22,7 +22,7 @@ public class MainWindowViewModel {
     }
 
     private void searchTours(String searchString) {
-        var tours = BL.getInstance().findMatchingTours( searchString );
+        var tours = BL.getInstance().getSearchLogic().findMatchingTours(searchString);
         tourOverviewViewModel.setTours(tours);
     }
 

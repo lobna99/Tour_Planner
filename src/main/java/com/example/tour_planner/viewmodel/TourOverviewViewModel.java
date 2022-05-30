@@ -32,7 +32,7 @@ public class TourOverviewViewModel {
 
     public void generateSummarizeReport(Tour selectedItem) {
         try {
-            BL.getInstance().averageStats(selectedItem);
+            BL.getInstance().getStatsCalculation().averageStats(selectedItem);
         } catch (SQLException e) {
             logger.fatal(e.toString());
         } catch (IOException e) {
@@ -53,7 +53,7 @@ public class TourOverviewViewModel {
         try {
             setTours( DAL.getInstance().tourDao().getAll("") );
         } catch (SQLException e) {
-            logger.fatal(e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -88,7 +88,7 @@ public class TourOverviewViewModel {
         observableTours.addAll(tours);
     }
 
-    public void addNewTour(String type,String From, String To, String text, String descripText) throws JSONException, IOException, ParseException, SQLException {
+    public void addNewTour(String type,String From, String To, String name, String descripText) throws JSONException, IOException, ParseException, SQLException {
         String routeType = "";
         switch (type) {
             case "CAR" -> routeType = "fastest";
@@ -98,8 +98,8 @@ public class TourOverviewViewModel {
 
         JsonNode obj = HttpRequest.getJsonnode(HttpRequest.getResponse("https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from=" + From + "&to=" + To + "&routeType="+routeType+""));
         if(obj != null) {
-            HttpRequest.saveImg("https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&size=650,650&defaultMarker=marker-3B5998-sm&zoom=8&session=" + obj.get("route").get("sessionId").getTextValue(), text);
-            Tour tour = new Tour(type, text, From, To, obj.get("route").get("formattedTime").getTextValue(), obj.get("route").get("distance").getDoubleValue(), descripText);
+            HttpRequest.saveImg("https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&size=650,650&defaultMarker=marker-3B5998-sm&zoom=8&banner="+name+"|top&session=" + obj.get("route").get("sessionId").getTextValue(), name);
+            Tour tour = new Tour(type, name, From, To, obj.get("route").get("formattedTime").getTextValue(), obj.get("route").get("distance").getDoubleValue(), descripText);
             DAL.getInstance().tourDao().create(tour);
             observableTours.add(tour);
         }else{

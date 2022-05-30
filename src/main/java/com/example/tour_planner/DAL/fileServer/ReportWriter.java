@@ -16,13 +16,26 @@ import com.itextpdf.layout.properties.UnitValue;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class ReportWriter implements IReportWriter {
+
+    private Properties appProps = new Properties();
+
+    public ReportWriter(){
+        try {
+            appProps.load(Thread.currentThread()
+                    .getContextClassLoader()
+                    .getResourceAsStream("base_directory.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void createTourReport(Tour tour) throws IOException, SQLException {
 
-    PdfWriter writer = new PdfWriter("src/main/java/com/example/tour_planner/dal/fileServer/reports/tour_reports/"+tour.getName()+"_report.pdf");
+    PdfWriter writer = new PdfWriter(appProps.getProperty("tour_reports_location")+tour.getName()+"_report.pdf");
     PdfDocument pdf = new PdfDocument(writer);
     Document document = new Document(pdf);
     java.util.List<TourLog> logs = DAL.getInstance().tourLogDao().getAll(tour.getName());
@@ -83,7 +96,7 @@ public class ReportWriter implements IReportWriter {
             .setBold()
             .setFontColor(ColorConstants.GREEN);
         document.add(imageHeader);
-    ImageData imageData = ImageDataFactory.create("src/main/resources/com/example/tour_planner/maps/"+tour.getName()+"_map.jpg");
+    ImageData imageData = ImageDataFactory.create(appProps.getProperty("map_location")+tour.getName()+"_map.jpg");
         document.add(new Image(imageData));
         document.close();
 
@@ -91,7 +104,7 @@ public class ReportWriter implements IReportWriter {
 
     @Override
     public void createSummaryReport(String tourname, java.util.List<String> Data) throws IOException {
-        PdfWriter writer = new PdfWriter("src/main/java/com/example/tour_planner/dal/fileServer/reports/summarize_reports/"+tourname+"_summarize_report.pdf");
+        PdfWriter writer = new PdfWriter(appProps.getProperty("summarize_reports_location")+tourname+"_summarize_report.pdf");
         PdfDocument pdf = new PdfDocument(writer);
         Document document = new Document(pdf);
 

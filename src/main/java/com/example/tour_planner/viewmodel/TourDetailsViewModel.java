@@ -163,8 +163,8 @@ public class TourDetailsViewModel {
         info.setValue(TourModel.getContent());
         try {
             setTourLogs(DAL.getInstance().tourLogDao().getAll(name.get()));
-            popularity.setValue(String.valueOf(BL.getInstance().calculatePopularity(TourModel)));
-            child.setValue(String.valueOf(BL.getInstance().calculateChildF(TourModel))+"%");
+            popularity.setValue(String.valueOf(BL.getInstance().getStatsCalculation().calculatePopularity(TourModel)));
+            child.setValue(String.valueOf(BL.getInstance().getStatsCalculation().calculateChildF(TourModel))+"%");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -177,6 +177,8 @@ public class TourDetailsViewModel {
         if (!isInitValue) {
             try {
                 DAL.getInstance().tourDao().update(tour, Arrays.asList(name,descripText));
+                popularity.setValue(String.valueOf(BL.getInstance().getStatsCalculation().calculatePopularity(tour)));
+                child.setValue(String.valueOf(BL.getInstance().getStatsCalculation().calculateChildF(tour))+"%");
             } catch (SQLException e) {
                 logger.fatal(e.toString());
             }
@@ -194,10 +196,12 @@ public class TourDetailsViewModel {
         TourLog tourLog = new TourLog("",comment,Integer.parseInt(diff),totaltime,Integer.parseInt(rating),name.get());
         try {
             DAL.getInstance().tourLogDao().create(tourLog);
+            observableLogs.add(tourLog);
+            popularity.setValue(String.valueOf(BL.getInstance().getStatsCalculation().calculatePopularity(tour)));
+            child.setValue(String.valueOf(BL.getInstance().getStatsCalculation().calculateChildF(tour))+"%");
         } catch (SQLException | ParseException e) {
             logger.fatal(e.toString());
         }
-        observableLogs.add(tourLog);
     }
     public void removeLog(TourLog selectedItem) {
         try {
