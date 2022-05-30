@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.json.JSONException;
 
@@ -29,12 +30,14 @@ public class FormsHandler {
     public static void tourForm(TourOverviewViewModel tourOverviewViewModel) {
         Stage stage = new Stage();
         VBox box = new VBox();
-        box.setPadding(new Insets(10));
+        box.setSpacing(15);
+        box.setPadding(new Insets(15));
 
         // How to center align content in a layout manager in JavaFX
         box.setAlignment(Pos.CENTER);
         box.setStyle("-fx-background-color: #3f054f; -fx-border-color: #66e0ff");
         Label label = new Label("Create a Tour");
+        label.setFont(new Font(20));
         label.setStyle("-fx-text-fill: white");
 
         TextField Name = new TextField();
@@ -57,17 +60,17 @@ public class FormsHandler {
         Descrip.setPromptText("Description");
         Descrip.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         Button btnSubmit = new Button();
-        btnSubmit.setText("submit");
+        btnSubmit.setText("create tour");
         btnSubmit.setStyle("-fx-text-fill: white; -fx-border-color: #fa1bf2; -fx-background-color: #22023b");
 
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    if (!From.getText().matches("[a-zA-ZäüöÄÜÖ]*")
-                            || !Name.getText().matches("[a-zA-ZäüöÄÜÖ0-9]*")
+                    if (!From.getText().matches("[a-zA-ZäüöÄÜÖ]+")
+                            || !Name.getText().matches("[a-zA-ZäüöÄÜÖ0-9]+")
                             || BL.getInstance().getSearchLogic().nameExists(Name.getText())
-                            || !To.getText().matches("[a-zA-z-ZäüöÄÜÖ]*")
+                            || !To.getText().matches("[a-zA-z-ZäüöÄÜÖ]+")
                             ) {
                         logger.warn("Input is not in right format");
                         alert.setAlertType(Alert.AlertType.WARNING);
@@ -83,7 +86,7 @@ public class FormsHandler {
             }
         });
         box.getChildren().addAll(label, Name, From, To,transport,Descrip, btnSubmit);
-        Scene scene = new Scene(box, 350, 250);
+        Scene scene = new Scene(box, 350, 350);
         stage.setScene(scene);
         stage.setTitle("Add Tour");
         stage.show();
@@ -92,7 +95,7 @@ public class FormsHandler {
     public static void logForm(TourDetailsViewModel tourDetailsViewModel) {
         Stage stage = new Stage();
         GridPane box = new GridPane();
-        box.setVgap(10);
+        box.setVgap(15);
         box.setHgap(10);
         box.setPadding(new Insets(25, 25, 25, 25));
 
@@ -102,15 +105,16 @@ public class FormsHandler {
 
         Label label = new Label("Create log");
         label.setStyle("-fx-text-fill: white");
-
+        label.setFont(new Font(25));
         TextField comment = new TextField();
         comment.setPromptText("Comment");
         comment.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         TextField totaltime = new TextField();
         totaltime.setPromptText("Total time spent");
         totaltime.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
-        Label diff = new Label("Difficulty");
+        Label diff = new Label("Difficulty: ");
         diff.setStyle("-fx-text-fill: white");
+        diff.setFont(new Font(20));
         ToggleGroup group = new ToggleGroup();
         RadioButton a = new RadioButton("1");
         a.setId("diff1");
@@ -126,8 +130,9 @@ public class FormsHandler {
         RadioButton d = new RadioButton("4");
         d.setToggleGroup(group);
         d.setStyle("-fx-text-fill: white;");
-        Label rating = new Label("Rating");
+        Label rating = new Label("Rating: ");
         rating.setStyle("-fx-text-fill: white");
+        rating.setFont(new Font(20));
         ToggleGroup groupR = new ToggleGroup();
         RadioButton aR = new RadioButton("1");
         aR.setToggleGroup(groupR);
@@ -148,13 +153,13 @@ public class FormsHandler {
 
 
         Button btnSubmit = new Button();
-        btnSubmit.setText("submit");
+        btnSubmit.setText("Submit");
         btnSubmit.setStyle("-fx-text-fill: white; -fx-border-color: #fa1bf2; -fx-background-color: #22023b");
 
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(!totaltime.getText().matches("[0-9]*")) {
+                if(!totaltime.getText().matches("[0-9]+")) {
                     logger.warn("Total Time Spent can only be a numeric value");
                     alert.setAlertType(Alert.AlertType.WARNING);
                     alert.setContentText("Total Time Spent can only be a numeric value");
@@ -166,23 +171,23 @@ public class FormsHandler {
             }
         });
         box.add(label, 0, 0, 2, 1);
-        box.add(comment, 1, 1);
-        box.add(totaltime, 1, 2);
-        box.add(diff, 0, 3, 2, 1);
-        box.add(a, 0, 4, 1, 1);
-        box.add(b, 1, 4, 1, 1);
-        box.add(c, 2, 4, 1, 1);
-        box.add(d, 3, 4, 1, 1);
-        box.add(rating, 0, 5, 2, 1);
-        box.add(aR, 0, 6);
-        box.add(bR, 1, 6);
-        box.add(cR, 2, 6);
-        box.add(dR, 3, 6);
-        box.add(eR, 4, 6);
-        box.add(btnSubmit, 1, 7);
+        box.add(comment,0,1, 1, 1);
+        box.add(totaltime,0,2, 1, 2);
+        box.add(diff, 0, 5, 1, 1);
+        box.add(a, 1, 6, 1, 1);
+        box.add(b, 2, 6, 1, 1);
+        box.add(c, 3, 6, 1, 1);
+        box.add(d, 4, 6, 1, 1);
+        box.add(rating, 0, 8, 2, 1);
+        box.add(aR, 1, 9);
+        box.add(bR, 2, 9);
+        box.add(cR, 3, 9);
+        box.add(dR, 4, 9);
+        box.add(eR, 5, 9);
+        box.add(btnSubmit, 0, 10);
 
         //box.getChildren().addAll(label,comment,totaltime,diff,a,b,c,d,aR,bR,cR,dR,eR,btnSubmit);
-        Scene scene = new Scene(box, 350, 250);
+        Scene scene = new Scene(box, 450, 350);
         stage.setScene(scene);
         stage.setTitle("Update Tourlog");
         stage.show();
@@ -191,6 +196,7 @@ public class FormsHandler {
     public static void tourUpdateForm(TourDetailsViewModel tourDetailsViewModel) {
         Stage stage = new Stage();
         VBox box = new VBox();
+        box.setSpacing(15);
         box.setPadding(new Insets(10));
 
         // How to center align content in a layout manager in JavaFX
@@ -199,7 +205,7 @@ public class FormsHandler {
 
         Label label = new Label("Update Tour");
         label.setStyle("-fx-text-fill: white");
-
+        label.setFont(new Font(20));
         TextField Name = new TextField();
         Name.setPromptText("update tour name");
         Name.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
@@ -221,9 +227,9 @@ public class FormsHandler {
         btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                                    if (!From.getText().matches("[a-zA-z]*")
-                            || !To.getText().matches("[a-zA-z]*")
-                            || !Name.getText().matches("[a-zA-z]*")
+                                    if (!From.getText().matches("[a-zA-z]+")
+                            || !To.getText().matches("[a-zA-z]+")
+                            || !Name.getText().matches("[a-zA-z]+")
                             ) {
                         logger.warn("Input is not in right format");
                         alert.setAlertType(Alert.AlertType.WARNING);
@@ -245,8 +251,8 @@ public class FormsHandler {
     public static void tourLogUpdateForm(TourDetailsViewModel tourDetailsViewModel, TourLog selectedItem) {
         Stage stage = new Stage();
         GridPane box = new GridPane();
-        box.setVgap(10);
-        box.setHgap(10);
+        box.setVgap(15);
+        box.setHgap(15);
         box.setPadding(new Insets(25, 25, 25, 25));
 
         // How to center align content in a layout manager in JavaFX
@@ -255,7 +261,7 @@ public class FormsHandler {
 
         Label label = new Label("Update log");
         label.setStyle("-fx-text-fill: white");
-
+        label.setFont(new Font(25));
         TextField comment = new TextField();
         comment.setId("comment");
         comment.setPromptText("Comment");
@@ -266,6 +272,7 @@ public class FormsHandler {
         totaltime.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         Label diff = new Label("Difficulty");
         diff.setStyle("-fx-text-fill: white");
+        diff.setFont(new Font(20));
         ToggleGroup group = new ToggleGroup();
         RadioButton a = new RadioButton("1");
         a.setToggleGroup(group);
@@ -283,6 +290,7 @@ public class FormsHandler {
         d.setStyle("-fx-text-fill: white;");
         Label rating = new Label("Rating");
         rating.setStyle("-fx-text-fill: white");
+        rating.setFont(new Font(20));
         ToggleGroup groupR = new ToggleGroup();
         RadioButton aR = new RadioButton("1");
         aR.setToggleGroup(groupR);
@@ -309,7 +317,7 @@ public class FormsHandler {
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(!totaltime.getText().matches("[0-9]*")) {
+                if(!totaltime.getText().matches("[0-9]+")) {
                     logger.warn("Total Time Spent can only be a numeric value");
                     alert.setAlertType(Alert.AlertType.WARNING);
                     alert.setContentText("Total Time Spent can only be a numeric value");
@@ -321,23 +329,23 @@ public class FormsHandler {
             }
         });
         box.add(label, 0, 0, 2, 1);
-        box.add(comment, 1, 1);
-        box.add(totaltime, 1, 2);
-        box.add(diff, 0, 3, 2, 1);
-        box.add(a, 0, 4, 1, 1);
-        box.add(b, 1, 4, 1, 1);
-        box.add(c, 2, 4, 1, 1);
-        box.add(d, 3, 4, 1, 1);
-        box.add(rating, 0, 5, 2, 1);
-        box.add(aR, 0, 6);
-        box.add(bR, 1, 6);
-        box.add(cR, 2, 6);
-        box.add(dR, 3, 6);
-        box.add(eR, 4, 6);
-        box.add(btnSubmit, 1, 7);
+        box.add(comment,0,1, 1, 1);
+        box.add(totaltime,0,2, 1, 2);
+        box.add(diff, 0, 5, 1, 1);
+        box.add(a, 1, 6, 1, 1);
+        box.add(b, 2, 6, 1, 1);
+        box.add(c, 3, 6, 1, 1);
+        box.add(d, 4, 6, 1, 1);
+        box.add(rating, 0, 8, 2, 1);
+        box.add(aR, 1, 9);
+        box.add(bR, 2, 9);
+        box.add(cR, 3, 9);
+        box.add(dR, 4, 9);
+        box.add(eR, 5, 9);
+        box.add(btnSubmit, 0, 10);
 
         //box.getChildren().addAll(label,comment,totaltime,diff,a,b,c,d,aR,bR,cR,dR,eR,btnSubmit);
-        Scene scene = new Scene(box, 350, 250);
+        Scene scene = new Scene(box, 450, 350);
         scene.getStylesheets().add("main.css");
         stage.setScene(scene);
         stage.setTitle("Update Tourlog");

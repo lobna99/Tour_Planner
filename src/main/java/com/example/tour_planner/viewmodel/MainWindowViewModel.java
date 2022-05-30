@@ -3,8 +3,9 @@ package com.example.tour_planner.viewmodel;
 import com.example.tour_planner.BL.BL;
 import com.example.tour_planner.DAL.DAL;
 import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.view.TourOverviewController;
 
-public class MainWindowViewModel {
+public class MainWindowViewModel extends TourDetailsViewModel {
     private SearchBarViewModel searchBarViewModel;
     private TourOverviewViewModel tourOverviewViewModel;
     private TourDetailsViewModel tourDetailsViewModel;

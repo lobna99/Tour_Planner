@@ -35,6 +35,8 @@ public class SearchLogic {
             List<TourLog> matchinglogs = tourLogs.stream().filter(tourLog -> tourLog.getComment().toLowerCase().contains(searchText.toLowerCase())).toList();
             ArrayList<String> matchingNames = new ArrayList<String>();
             matchinglogs.forEach(tourLog -> matchingNames.add(tourLog.getName().toLowerCase()));
+            List<Tour> matchingtours = tours.stream().filter(x -> x.getContent().toLowerCase().contains(searchText.toLowerCase())||x.getTo().toLowerCase().contains(searchText.toLowerCase())||x.getFrom().toLowerCase().contains(searchText.toLowerCase())).toList();
+            matchingtours.forEach(tour -> matchingNames.add(tour.getName().toLowerCase()));
             matchingNames.add(searchText.toLowerCase());
             logger.debug(String.valueOf(matchingNames));
             return tours.stream()

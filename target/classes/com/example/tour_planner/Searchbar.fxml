@@ -9,7 +9,7 @@
     <userData>
         <fx:reference source="controller"/>
     </userData>
-    <TextField fx:id="searchTextField" style="-fx-background-color: #3f054f; -fx-border-color: #66e0ff;"
+    <TextField fx:id="searchTextField" style="-fx-background-color: #3f054f; -fx-border-color: #66e0ff;-fx-text-fill: white;"
                HBox.hgrow="ALWAYS"/>
     <Button fx:id="searchButton"
             style="-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;"

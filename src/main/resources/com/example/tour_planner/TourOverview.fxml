@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -21,6 +20,5 @@
             </items>
         </MenuButton>
     </ToolBar>
-    <ListView fx:id="tourList" prefHeight="400.0" prefWidth="328.0"
-              style="-fx-background-color: #3f054f; -fx-border-color: #66e0ff;" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="tourList" prefHeight="400.0" prefWidth="328.0" VBox.vgrow="ALWAYS" style="-fx-control-inner-background: #22023b;-fx-control-inner-background-alt: #3f054f;" />
 </VBox>
