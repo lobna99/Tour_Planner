@@ -33,25 +33,32 @@ public class FormsHandler {
 
         // How to center align content in a layout manager in JavaFX
         box.setAlignment(Pos.CENTER);
-
+        box.setStyle("-fx-background-color: #3f054f; -fx-border-color: #66e0ff");
         Label label = new Label("Create a Tour");
+        label.setStyle("-fx-text-fill: white");
 
         TextField Name = new TextField();
         Name.setId("name");
         Name.setPromptText("enter tour name");
+        Name.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         TextField From = new TextField();
         From.setPromptText("enter from");
+        From.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         TextField To = new TextField();
         To.setPromptText("enter to");
+        To.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         ChoiceBox<String> transport = new ChoiceBox<>();
         transport.setId("choice");
         transport.getItems().add("CAR");
         transport.getItems().add("BICYCLE");
         transport.getItems().add("PEDESTRIAN");
+        transport.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         TextField Descrip = new TextField();
         Descrip.setPromptText("Description");
+        Descrip.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         Button btnSubmit = new Button();
         btnSubmit.setText("submit");
+        btnSubmit.setStyle("-fx-text-fill: white; -fx-border-color: #fa1bf2; -fx-background-color: #22023b");
 
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -91,42 +98,58 @@ public class FormsHandler {
 
         // How to center align content in a layout manager in JavaFX
         box.setAlignment(Pos.CENTER_LEFT);
+        box.setStyle("-fx-background-color: #3f054f; -fx-border-color: #66e0ff");
 
         Label label = new Label("Create log");
+        label.setStyle("-fx-text-fill: white");
 
         TextField comment = new TextField();
         comment.setPromptText("Comment");
+        comment.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         TextField totaltime = new TextField();
         totaltime.setPromptText("Total time spent");
+        totaltime.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         Label diff = new Label("Difficulty");
+        diff.setStyle("-fx-text-fill: white");
         ToggleGroup group = new ToggleGroup();
         RadioButton a = new RadioButton("1");
         a.setId("diff1");
         a.setToggleGroup(group);
         a.setSelected(true);
+        a.setStyle("-fx-text-fill: white;");
         RadioButton b = new RadioButton("2");
         b.setToggleGroup(group);
+        b.setStyle("-fx-text-fill: white;");
         RadioButton c = new RadioButton("3");
         c.setToggleGroup(group);
+        c.setStyle("-fx-text-fill: white;");
         RadioButton d = new RadioButton("4");
         d.setToggleGroup(group);
+        d.setStyle("-fx-text-fill: white;");
         Label rating = new Label("Rating");
+        rating.setStyle("-fx-text-fill: white");
         ToggleGroup groupR = new ToggleGroup();
         RadioButton aR = new RadioButton("1");
         aR.setToggleGroup(groupR);
         aR.setSelected(true);
+        aR.setStyle("-fx-text-fill: white;");
         RadioButton bR = new RadioButton("2");
         bR.setToggleGroup(groupR);
+        bR.setStyle("-fx-text-fill: white;");
         RadioButton cR = new RadioButton("3");
         cR.setToggleGroup(groupR);
+        cR.setStyle("-fx-text-fill: white;");
         RadioButton dR = new RadioButton("4");
         dR.setToggleGroup(groupR);
+        dR.setStyle("-fx-text-fill: white;");
         RadioButton eR = new RadioButton("5");
         eR.setToggleGroup(groupR);
+        eR.setStyle("-fx-text-fill: white;");
 
 
         Button btnSubmit = new Button();
         btnSubmit.setText("submit");
+        btnSubmit.setStyle("-fx-text-fill: white; -fx-border-color: #fa1bf2; -fx-background-color: #22023b");
 
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -172,21 +195,28 @@ public class FormsHandler {
 
         // How to center align content in a layout manager in JavaFX
         box.setAlignment(Pos.CENTER);
+        box.setStyle("-fx-background-color: #3f054f; -fx-border-color: #66e0ff");
 
         Label label = new Label("Update Tour");
+        label.setStyle("-fx-text-fill: white");
 
         TextField Name = new TextField();
         Name.setPromptText("update tour name");
+        Name.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         TextField From = new TextField();
         From.setPromptText("update from");
+        From.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         TextField To = new TextField();
         To.setPromptText("update to");
+        To.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         TextField Descrip = new TextField();
         Descrip.setPromptText("update description");
+        Descrip.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
 
         Button btnUpdate = new Button();
         btnUpdate.setId("update");
         btnUpdate.setText("update");
+        btnUpdate.setStyle("-fx-text-fill: white; -fx-border-color: #fa1bf2; -fx-background-color: #22023b");
 
         btnUpdate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -221,44 +251,60 @@ public class FormsHandler {
 
         // How to center align content in a layout manager in JavaFX
         box.setAlignment(Pos.CENTER_LEFT);
+        box.setStyle("-fx-background-color: #3f054f; -fx-border-color: #66e0ff");
 
         Label label = new Label("Update log");
+        label.setStyle("-fx-text-fill: white");
 
         TextField comment = new TextField();
         comment.setId("comment");
         comment.setPromptText("Comment");
+        comment.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         TextField totaltime = new TextField();
         totaltime.setId("total_time");
         totaltime.setPromptText("Total time spent");
+        totaltime.setStyle("-fx-background-color: #22023b; -fx-border-color: #66e0ff; -fx-text-fill: white;");
         Label diff = new Label("Difficulty");
+        diff.setStyle("-fx-text-fill: white");
         ToggleGroup group = new ToggleGroup();
         RadioButton a = new RadioButton("1");
         a.setToggleGroup(group);
         a.setSelected(true);
+        a.setStyle("-fx-text-fill: white;");
         RadioButton b = new RadioButton("2");
         b.setId("diff2");
         b.setToggleGroup(group);
+        b.setStyle("-fx-text-fill: white;");
         RadioButton c = new RadioButton("3");
         c.setToggleGroup(group);
+        c.setStyle("-fx-text-fill: white;");
         RadioButton d = new RadioButton("4");
         d.setToggleGroup(group);
+        d.setStyle("-fx-text-fill: white;");
         Label rating = new Label("Rating");
+        rating.setStyle("-fx-text-fill: white");
         ToggleGroup groupR = new ToggleGroup();
         RadioButton aR = new RadioButton("1");
         aR.setToggleGroup(groupR);
         aR.setSelected(true);
+        aR.setStyle("-fx-text-fill: white;");
         RadioButton bR = new RadioButton("2");
         bR.setToggleGroup(groupR);
+        bR.setStyle("-fx-text-fill: white;");
         RadioButton cR = new RadioButton("3");
         cR.setToggleGroup(groupR);
+        cR.setStyle("-fx-text-fill: white;");
         RadioButton dR = new RadioButton("4");
         dR.setToggleGroup(groupR);
+        dR.setStyle("-fx-text-fill: white;");
         RadioButton eR = new RadioButton("5");
         eR.setToggleGroup(groupR);
+        eR.setStyle("-fx-text-fill: white;");
 
 
         Button btnSubmit = new Button();
         btnSubmit.setText("submit");
+        btnSubmit.setStyle("-fx-text-fill: white; -fx-border-color: #fa1bf2; -fx-background-color: #22023b");
 
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -292,6 +338,7 @@ public class FormsHandler {
 
         //box.getChildren().addAll(label,comment,totaltime,diff,a,b,c,d,aR,bR,cR,dR,eR,btnSubmit);
         Scene scene = new Scene(box, 350, 250);
+        scene.getStylesheets().add("main.css");
         stage.setScene(scene);
         stage.setTitle("Update Tourlog");
         stage.show();

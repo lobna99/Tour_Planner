@@ -5,12 +5,11 @@
 
 <?import java.net.URL?>
 <VBox fx:id="vbox"
-        styleClass="purple"
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml"
         fx:controller="com.example.tour_planner.view.MainWindowController"
-        prefHeight="400.0" prefWidth="600.0">
-    <MenuBar styleClass="purple">
+        prefHeight="578.0" prefWidth="955.0" style="-fx-text-fill: white;" >
+    <MenuBar style="-fx-text-fill: white; -fx-border-color: #66e0ff;">
         <Menu text="%Menu_File">
             <MenuItem text="%Menu_File_Import" onAction="#importTour"/>
             <MenuItem text="%Menu_File_Quit" onAction="#onMenuFileQuitClicked" />
@@ -20,7 +19,8 @@
         </Menu>
     </MenuBar>
     <fx:include fx:id="searchbar" source="Searchbar.fxml"/>
-    <SplitPane dividerPositions="0.3" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.3" prefHeight="523.0" prefWidth="874.0"
+               style="-fx-background-color: #66e0ff;" VBox.vgrow="ALWAYS">
         <fx:include fx:id="tourOverview" source="TourOverview.fxml"/>
         <fx:include fx:id="tourDetails" source="TourDetails.fxml"/>
     </SplitPane>
