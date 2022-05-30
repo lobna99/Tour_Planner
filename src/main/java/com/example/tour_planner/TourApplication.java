@@ -38,19 +38,24 @@ public class TourApplication extends Application {
 
         // How to center align content in a layout manager in JavaFX
         box.setAlignment(Pos.CENTER_LEFT);
+        box.setStyle("-fx-background-color: #3f054f; -fx-border-color: #66e0ff");
 
         Label label = new Label("Select language");
+        label.setStyle("-fx-text-fill: white;");
         ToggleGroup group = new ToggleGroup();
         RadioButton a = new RadioButton("1");
         a.setToggleGroup(group);
         a.setSelected(true);
         a.setText("German");
+        a.setStyle("-fx-text-fill: white");
         RadioButton b = new RadioButton("2");
         b.setToggleGroup(group);
         b.setText("English");
+        b.setStyle("-fx-text-fill: white;");
 
         Button btnSubmit = new Button();
         btnSubmit.setText("submit");
+        btnSubmit.setStyle("-fx-text-fill: white; -fx-border-color: #fa1bf2; -fx-background-color: #22023b");
 
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override

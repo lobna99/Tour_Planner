@@ -3,13 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tour_planner.view.TourOverviewController">
-    <ToolBar>
-        <Label text="%TourOverview_Items" />
+<VBox prefHeight="437.0" prefWidth="269.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.tour_planner.view.TourOverviewController">
+    <ToolBar style="-fx-background-color: #22023b; -fx-border-color: #66e0ff;">
+        <Label style="-fx-text-fill: white;" text="%TourOverview_Items" />
         <Pane HBox.hgrow="ALWAYS" />
-        <Button onAction="#onButtonAdd" text="+" />
-        <Button onAction="#onButtonRemove" text="-" />
-        <MenuButton text="..." textAlignment="JUSTIFY">
+        <Button onAction="#onButtonAdd" text="+"
+                style="-fx-background-color: #22023b; -fx-text-fill: white; -fx-border-color: #fa1bf2;"/>
+        <Button onAction="#onButtonRemove" text="-"
+                style="-fx-background-color: #22023b; -fx-text-fill: white; -fx-border-color: #fa1bf2;"/>
+        <MenuButton text="..." textAlignment="JUSTIFY"
+                    style="-fx-background-color: #22023b; -fx-text-fill: white; -fx-border-color: #fa1bf2;">
             <items>
                 <MenuItem onAction="#onButtonTourReport" text="%tour_report" />
                 <MenuItem onAction="#generateSummarizeReport" text="%summarize_report" />
@@ -17,5 +21,6 @@
             </items>
         </MenuButton>
     </ToolBar>
-    <ListView fx:id="tourList" prefHeight="400.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="tourList" prefHeight="400.0" prefWidth="328.0"
+              style="-fx-background-color: #3f054f; -fx-border-color: #66e0ff;" VBox.vgrow="ALWAYS" />
 </VBox>
