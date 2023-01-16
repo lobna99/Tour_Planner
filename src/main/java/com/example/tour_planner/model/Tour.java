@@ -3,23 +3,20 @@ package com.example.tour_planner.model;
 
 
 import java.io.Serializable;
-import java.sql.Time;
 
 
 public class Tour implements Serializable {
-    private int transport_type;
+    private String transport_type;
     private String name;
-    private String date;
     private String from;
     private String to;
     private String duration;
     private double distance;
     private String content;
 
-    public Tour( int transport_type, String name, String date, String from, String to, String duration, double distance, String content) {
+    public Tour(String transport_type, String name, String from, String to,String duration, double distance, String content) {
         this.transport_type = transport_type;
         this.name = name;
-        this.date = date;
         this.from = from;
         this.to = to;
         this.duration = duration;
@@ -47,16 +44,17 @@ public class Tour implements Serializable {
         return from;
     }
 
-    public String getDate() {
-        return date;
-    }
 
     public String getName() {
         return name;
     }
 
-    public int getTransport_type() {
+    public String getTransport_type() {
         return transport_type;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -6,6 +6,11 @@ module com.example.tour_planner {
     requires jackson.core.asl;
     requires jackson.mapper.asl;
     requires java.desktop;
+    requires org.apache.logging.log4j;
+    requires io;
+    requires kernel;
+    requires layout;
+    requires json.simple;
 
 
     opens com.example.tour_planner to javafx.fxml;

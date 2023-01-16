@@ -1,36 +1,35 @@
 package com.example.tour_planner.viewmodel;
 
+import com.example.tour_planner.BL.BL;
+import com.example.tour_planner.DAL.DAL;
 import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.view.TourOverviewController;
 
-public class MainWindowViewModel {
+public class MainWindowViewModel extends TourDetailsViewModel {
     private SearchBarViewModel searchBarViewModel;
     private TourOverviewViewModel tourOverviewViewModel;
     private TourDetailsViewModel tourDetailsViewModel;
 
-    public MainWindowViewModel(SearchBarViewModel searchBarViewModel, TourOverviewViewModel mediaOverviewViewModel,TourDetailsViewModel tourDetailsViewModel) {
+    public MainWindowViewModel(SearchBarViewModel searchBarViewModel, TourOverviewViewModel tourOverviewViewModel,TourDetailsViewModel tourDetailsViewModel) {
         this.searchBarViewModel = searchBarViewModel;
-        this.tourOverviewViewModel = mediaOverviewViewModel;
+        this.tourOverviewViewModel = tourOverviewViewModel;
         this.tourDetailsViewModel =tourDetailsViewModel;
-
         this.searchBarViewModel.addSearchListener(searchString->searchTours(searchString));
-        // instead of the lambda-expression from above, you also can use the following "classical" event-handler implementation with anonymous inner classes
-//        this.searchBarViewModel.addSearchListener(new SearchBarViewModel.SearchListener() {
-//            @Override
-//            public void search(String searchString) {
-//                var tours = BL.getInstance().findMatchingTours( searchString );
-//                toursOverviewViewModel.setTours(tours);
-//            }
-//        });
-
         this.tourOverviewViewModel.addSelectionChangedListener(selectedTour->selectTour(selectedTour));
     }
 
-    private void selectTour(Tour selectedMediaItem) {
-        tourDetailsViewModel.setTourModel(selectedMediaItem);
+    private void selectTour(Tour selectedTour) {
+        tourDetailsViewModel.setTourModel(selectedTour);
     }
 
     private void searchTours(String searchString) {
-        //var tours = BL.getInstance().findMatchingTours( searchString );
-        //TourOverviewViewModel.setTours(tours);
+        var tours = BL.getInstance().getSearchLogic().findMatchingTours(searchString);
+        tourOverviewViewModel.setTours(tours);
     }
+
+    public void addImportTour(String path) {
+        Tour importedTour = DAL.getInstance().fileAccess().importTour(path);
+        tourOverviewViewModel.getObservableTours().add(importedTour);
+    }
+
 }

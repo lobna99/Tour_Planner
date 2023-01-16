@@ -1,43 +1,68 @@
 package com.example.tour_planner.viewmodel;
 
-import com.example.tour_planner.dal.DAL;
-import com.example.tour_planner.dal.http.HttpRequest;
+import com.example.tour_planner.BL.BL;
+import com.example.tour_planner.DAL.DAL;
+import com.example.tour_planner.DAL.api.HttpRequest;
+import com.example.tour_planner.logger.ILoggerWrapper;
+import com.example.tour_planner.logger.LoggerFactory;
 import com.example.tour_planner.model.Tour;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import org.codehaus.jackson.JsonNode;
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TourOverviewViewModel {
+    private static final ILoggerWrapper logger = LoggerFactory.getLogger();
+
+    public void exportTour(Tour selectedItem) {
+        try {
+            DAL.getInstance().fileAccess().exportTour(selectedItem);
+        } catch (JSONException e) {
+            logger.error(e.toString());
+        }
+    }
+
+    public void generateSummarizeReport(Tour selectedItem) {
+        try {
+            BL.getInstance().getStatsCalculation().averageStats(selectedItem);
+        } catch (SQLException e) {
+            logger.fatal(e.toString());
+        } catch (IOException e) {
+            logger.error(e.toString());
+        }
+    }
+
     public interface SelectionChangedListener {
         void changeSelection(Tour mediaItem);
     }
 
-    private List<SelectionChangedListener> listeners = new ArrayList<>();
+    private final List<SelectionChangedListener> listeners = new ArrayList<>();
 
-    private ObservableList<Tour> observabletours = FXCollections.observableArrayList();
+    private final ObservableList<Tour> observableTours = FXCollections.observableArrayList();
 
     public TourOverviewViewModel()
     {
         try {
-            setTours( DAL.getInstance().tourDao().getAll() );
+            setTours( DAL.getInstance().tourDao().getAll("") );
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public void generateTourReport(Tour selectedItem) throws IOException, SQLException {
+        DAL.getInstance().reportWriter().createTourReport(selectedItem);
+    }
+
     public ObservableList<Tour> getObservableTours() {
-        return observabletours;
+        return observableTours;
     }
 
     public ChangeListener<Tour> getChangeListener() {
@@ -59,22 +84,34 @@ public class TourOverviewViewModel {
     }
 
     public void setTours(List<Tour> tours) {
-        observabletours.clear();
-        observabletours.addAll(tours);
+        observableTours.clear();
+        observableTours.addAll(tours);
     }
 
-    public void addNewTour(String From, String To, String text, LocalDate converter) throws JSONException, IOException, ParseException, SQLException {
-        JsonNode obj;
-        HttpRequest request = new HttpRequest();
-            obj = request.getJsonnode(request.getResponse("https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from=" + From + "&to=" + To + ""));
-            request.saveImg("https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&size=650,650&defaultMarker=none&zoom=8&session=" + obj.get("route").get("sessionId").getTextValue(),text);
-            Tour tour= new Tour(1,text,converter.toString(),From,To,obj.get("route").get("formattedTime").getTextValue(),obj.get("route").get("distance").getDoubleValue(),"");
+    public void addNewTour(String type,String From, String To, String name, String descripText) throws JSONException, IOException, ParseException, SQLException {
+        String routeType = "";
+        switch (type) {
+            case "CAR" -> routeType = "fastest";
+            case "BICYCLE" -> routeType = "bicycle";
+            case "PEDESTRIAN" -> routeType = "pedestrian";
+        }
+
+        JsonNode obj = HttpRequest.getJsonnode(HttpRequest.getResponse("https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from=" + From + "&to=" + To + "&routeType="+routeType+""));
+        if(obj != null) {
+            HttpRequest.saveImg("https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&size=650,650&defaultMarker=marker-3B5998-sm&zoom=8&banner="+name+"|top&session=" + obj.get("route").get("sessionId").getTextValue(), name);
+            Tour tour = new Tour(type, name, From, To, obj.get("route").get("formattedTime").getTextValue(), obj.get("route").get("distance").getDoubleValue(), descripText);
             DAL.getInstance().tourDao().create(tour);
-            observabletours.add(tour);
+            observableTours.add(tour);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.NONE);
+            alert.setAlertType(Alert.AlertType.WARNING);
+            alert.setContentText("Route couldn't be calculated!\nTry a different transportation type");
+            alert.show();
+        }
     }
 
     public void deleteTour(Tour tour) throws SQLException {
         DAL.getInstance().tourDao().delete(tour);
-        observabletours.remove(tour);
+        observableTours.remove(tour);
     }
 }
